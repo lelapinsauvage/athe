@@ -135,3 +135,127 @@ updateHorizontalScroll();
     });
   });
 })();
+
+/* ══════════════════════════════════════════════════
+   Page Animations
+   ══════════════════════════════════════════════════ */
+(function () {
+
+  /* ── Line splitter: detects rendered lines and wraps each in a reveal mask ── */
+  function splitLines(el) {
+    const text = el.textContent.trim();
+    const words = text.split(/\s+/);
+
+    // Inject temporary word spans to detect line breaks
+    el.innerHTML = words.map(w => `<span>${w} </span>`).join('');
+
+    const spans = el.querySelectorAll('span');
+    const lines = [];
+    let currentLine = [];
+    let lastTop = -Infinity;
+
+    spans.forEach(span => {
+      const top = Math.round(span.getBoundingClientRect().top);
+      if (lastTop > -Infinity && top !== lastTop) {
+        lines.push(currentLine.join(' '));
+        currentLine = [];
+      }
+      currentLine.push(span.textContent.trim());
+      lastTop = top;
+    });
+    if (currentLine.length) lines.push(currentLine.join(' '));
+
+    // Rebuild with overflow-hidden masks
+    el.innerHTML = lines
+      .map(
+        (line, i) =>
+          `<span class="line-mask"><span class="line-inner" style="transition-delay:${i * 0.1}s">${line}</span></span>`
+      )
+      .join('');
+
+    return el.querySelectorAll('.line-inner');
+  }
+
+  /* ── Hero text: split into lines, reveal on load ── */
+  const heroText = document.querySelector('.hero-text');
+  if (heroText) {
+    const heroLines = splitLines(heroText);
+    setTimeout(() => {
+      heroLines.forEach(l => l.classList.add('is-visible'));
+    }, 400);
+  }
+
+  /* ── Section titles: split into lines, reveal on scroll ── */
+  const teamTitle = document.querySelector('.team-title');
+  const faqTitle = document.querySelector('.faq-title');
+  if (teamTitle) splitLines(teamTitle);
+  if (faqTitle) splitLines(faqTitle);
+
+  /* ── IntersectionObserver for scroll-triggered reveals ── */
+  const revealObserver = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        // Reveal line-inner children
+        el.querySelectorAll('.line-inner').forEach(l => l.classList.add('is-visible'));
+        // Reveal self
+        el.classList.add('is-visible');
+        obs.unobserve(el);
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  if (teamTitle) revealObserver.observe(teamTitle);
+  if (faqTitle) revealObserver.observe(faqTitle);
+
+  /* FAQ items — staggered scroll reveal */
+  document.querySelectorAll('.faq-item').forEach((item, i) => {
+    // Stagger opacity + transform delays; keep min-height delay at 0s for accordion
+    item.style.transitionDelay = `${i * 0.12}s, ${i * 0.12}s, 0s`;
+    revealObserver.observe(item);
+  });
+
+  /* Footer reveals */
+  const footerBtn = document.querySelector('.footer-btn');
+  const footerBlock = document.querySelector('.footer-block');
+  if (footerBtn) revealObserver.observe(footerBtn);
+  if (footerBlock) revealObserver.observe(footerBlock);
+
+  /* ── Image separator: parallax zoom-out on scroll ── */
+  const imgSection = document.querySelector('.image-separator');
+  const imgEl = imgSection ? imgSection.querySelector('img') : null;
+
+  if (imgEl) {
+    function updateImgParallax() {
+      const rect = imgSection.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const progress = Math.min(Math.max((vh - rect.top) / (vh + rect.height), 0), 1);
+      const scale = 1.15 - progress * 0.15; // 1.15 → 1.0
+      imgEl.style.transform = `scale(${scale})`;
+    }
+    window.addEventListener('scroll', updateImgParallax, { passive: true });
+    updateImgParallax();
+  }
+
+  /* ── Service block content: reveal when block center enters viewport ── */
+  const serviceBlocks = document.querySelectorAll('.service-block');
+  const revealedBlocks = new Set();
+
+  function checkServiceBlocks() {
+    serviceBlocks.forEach(block => {
+      if (revealedBlocks.has(block)) return;
+      const rect = block.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      if (cx > 0 && cx < window.innerWidth) {
+        block.classList.add('in-view');
+        revealedBlocks.add(block);
+      }
+    });
+  }
+
+  window.addEventListener('scroll', checkServiceBlocks, { passive: true });
+  checkServiceBlocks();
+
+})();
