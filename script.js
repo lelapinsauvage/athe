@@ -4,12 +4,20 @@
    ══════════════════════════════════════════════════ */
 
 /* ── Lenis smooth scroll ── */
-const lenis = new Lenis({
-  duration: 1.4,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  smoothWheel: true,
-  syncTouch: false,
-});
+const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+let lenis;
+try {
+  lenis = new Lenis({
+    duration: isMobile ? 1.0 : 1.4,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: !isMobile,
+    syncTouch: false,
+    touchMultiplier: 1.5,
+  });
+} catch (e) {
+  lenis = { raf() {} };
+}
 
 /* ── Lerp utility ── */
 function lerp(a, b, t) {
@@ -20,6 +28,9 @@ function lerp(a, b, t) {
 function easeInOutQuad(t) {
   return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 }
+
+/* ── Reduced motion preference ── */
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ── DOM refs ── */
 const wrapper = document.querySelector('.services-wrapper');
@@ -36,8 +47,10 @@ const panelInners = Array.from(statsPanels).map(p =>
   Array.from(p.querySelectorAll('.reveal-inner'))
 );
 
-/* ── Lerped state ── */
-const SMOOTH = 0.065;
+/* ── Lerped state (separate factors for each animation) ── */
+const LERP_HSCROLL = 0.10;
+const LERP_PARALLAX = 0.06;
+const LERP_STATS = 0.08;
 
 let currentX = 0;
 let targetX = 0;
@@ -49,38 +62,49 @@ let targetStatsProgress = 0;
 /* ── Target updaters (read from DOM) ── */
 function updateTargets() {
   // Horizontal scroll
-  if (window.innerWidth > 1024) {
+  if (wrapper && window.innerWidth > 1024) {
     const rect = wrapper.getBoundingClientRect();
     const scrollDist = wrapper.offsetHeight - window.innerHeight;
-    const progress = Math.min(Math.max(-rect.top / scrollDist, 0), 1);
-    targetX = progress * ((totalBlocks * 50) - 100);
+    if (scrollDist > 0) {
+      const progress = Math.min(Math.max(-rect.top / scrollDist, 0), 1);
+      const maxScroll = Math.max(0, (totalBlocks * 50) - 100);
+      targetX = progress * maxScroll;
+    }
   }
 
   // Image parallax
-  if (imgEl) {
+  if (imgEl && imgSection) {
     const rect = imgSection.getBoundingClientRect();
     const vh = window.innerHeight;
-    const progress = Math.min(Math.max((vh - rect.top) / (vh + rect.height), 0), 1);
-    targetScale = 1.15 - progress * 0.15;
+    const rawProgress = Math.min(Math.max((vh - rect.top) / (vh + rect.height), 0), 1);
+    const easedProgress = rawProgress * rawProgress * (3 - 2 * rawProgress);
+    targetScale = 1.15 - easedProgress * 0.15;
   }
 
   // Stats progress
-  const statsRect = statsWrapper.getBoundingClientRect();
-  const statsScrollDist = statsWrapper.offsetHeight - window.innerHeight;
-  targetStatsProgress = Math.min(Math.max(-statsRect.top / statsScrollDist, 0), 1);
+  if (statsWrapper) {
+    const statsRect = statsWrapper.getBoundingClientRect();
+    const statsScrollDist = statsWrapper.offsetHeight - window.innerHeight;
+    if (statsScrollDist > 0) {
+      targetStatsProgress = Math.min(Math.max(-statsRect.top / statsScrollDist, 0), 1);
+    }
+  }
 }
 
 /* ── Stats renderer ── */
 function setPanelState(index, yPercent, opacity) {
-  panelInners[index].forEach(el => {
+  panelInners[index].forEach((el, i) => {
+    const staggerOffset = i * 15;
     el.style.opacity = String(opacity);
-    el.style.transform = `translate3d(0, ${yPercent}%, 0)`;
+    el.style.transform = `translate3d(0, ${yPercent + (1 - opacity) * staggerOffset}%, 0)`;
   });
 }
 
 function renderStats(progress) {
-  const holdSize = 0.10;
-  const transSize = 0.20;
+  if (totalPanels === 0) return;
+
+  const holdSize = 0.16;
+  const transSize = 0.12;
   const timeline = [];
   for (let i = 0; i < totalPanels; i++) {
     if (i === 0) timeline.push({ type: 'hold', panel: i, start: 0, end: holdSize });
@@ -103,15 +127,11 @@ function renderStats(progress) {
     setPanelState(segment.panel, 0, 1);
   } else {
     const t = (progress - segment.start) / (segment.end - segment.start);
-    if (t <= 0.5) {
-      const exitT = easeInOutQuad(t / 0.5);
-      setPanelState(segment.from, -exitT * 110, 1 - exitT);
-      setPanelState(segment.to, 110, 0);
-    } else {
-      const enterT = easeInOutQuad((t - 0.5) / 0.5);
-      setPanelState(segment.from, -110, 0);
-      setPanelState(segment.to, (1 - enterT) * 110, enterT);
-    }
+    // Overlapping exit/enter to prevent blank screen flash
+    const exitT = easeInOutQuad(Math.min(t / 0.6, 1));
+    const enterT = easeInOutQuad(Math.max((t - 0.4) / 0.6, 0));
+    setPanelState(segment.from, -exitT * 110, 1 - exitT);
+    setPanelState(segment.to, (1 - enterT) * 110, enterT);
   }
 }
 
@@ -121,10 +141,19 @@ function checkServiceBlocks() {
   serviceBlocks.forEach(block => {
     if (revealedBlocks.has(block)) return;
     const rect = block.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    if (cx > 0 && cx < window.innerWidth) {
-      block.classList.add('in-view');
-      revealedBlocks.add(block);
+    if (window.innerWidth > 1024) {
+      // Desktop: horizontal scroll — trigger when 25% of block has entered
+      if (rect.left < window.innerWidth * 0.75) {
+        block.classList.add('in-view');
+        revealedBlocks.add(block);
+      }
+    } else {
+      // Tablet/mobile: vertical stack — check vertical center
+      const cy = rect.top + rect.height / 2;
+      if (cy > 0 && cy < window.innerHeight) {
+        block.classList.add('in-view');
+        revealedBlocks.add(block);
+      }
     }
   });
 }
@@ -134,26 +163,31 @@ function checkServiceBlocks() {
    ══════════════════════════════════════════════════ */
 function animate(time) {
   lenis.raf(time);
-  updateTargets();
 
-  // Lerp horizontal scroll
-  if (window.innerWidth > 1024) {
-    currentX = lerp(currentX, targetX, SMOOTH);
-    track.style.transform = `translate3d(-${currentX}vw, 0, 0)`;
+  if (!prefersReducedMotion) {
+    updateTargets();
+
+    // Lerp horizontal scroll
+    if (track && window.innerWidth > 1024) {
+      currentX = Math.abs(targetX - currentX) < 0.001 ? targetX : lerp(currentX, targetX, LERP_HSCROLL);
+      track.style.transform = `translate3d(-${currentX}vw, 0, 0)`;
+    }
+
+    // Lerp image parallax
+    if (imgEl) {
+      currentScale = Math.abs(targetScale - currentScale) < 0.0001 ? targetScale : lerp(currentScale, targetScale, LERP_PARALLAX);
+      imgEl.style.transform = `scale(${currentScale})`;
+    }
+
+    // Lerp stats
+    currentStatsProgress = Math.abs(targetStatsProgress - currentStatsProgress) < 0.0001 ? targetStatsProgress : lerp(currentStatsProgress, targetStatsProgress, LERP_STATS);
+    renderStats(currentStatsProgress);
+
+    // Service block reveals — stop checking once all are revealed
+    if (revealedBlocks.size < totalBlocks) {
+      checkServiceBlocks();
+    }
   }
-
-  // Lerp image parallax
-  if (imgEl) {
-    currentScale = lerp(currentScale, targetScale, SMOOTH);
-    imgEl.style.transform = `scale(${currentScale})`;
-  }
-
-  // Lerp stats
-  currentStatsProgress = lerp(currentStatsProgress, targetStatsProgress, SMOOTH);
-  renderStats(currentStatsProgress);
-
-  // Service block reveals
-  checkServiceBlocks();
 
   requestAnimationFrame(animate);
 }
@@ -166,31 +200,70 @@ requestAnimationFrame(animate);
   const prevBtn = document.querySelector('.arrow-left');
   const nextBtn = document.querySelector('.arrow-right');
   const total = slideEls.length;
+  if (total === 0) return;
+
   let current = 0;
 
   slideEls[0].classList.add('active');
+  dots.forEach((d, i) => d.classList.toggle('active', i === 0));
+
+  // Hide non-active slides from screen readers
+  slideEls.forEach((s, i) => {
+    if (i !== 0) s.setAttribute('aria-hidden', 'true');
+  });
 
   function goTo(index) {
     if (index === current) return;
     slideEls[current].classList.remove('active');
+    slideEls[current].setAttribute('aria-hidden', 'true');
     current = (index + total) % total;
     slideEls[current].classList.add('active');
+    slideEls[current].removeAttribute('aria-hidden');
     dots.forEach((d, i) => d.classList.toggle('active', i === current));
   }
 
-  prevBtn.addEventListener('click', () => goTo((current - 1 + total) % total));
-  nextBtn.addEventListener('click', () => goTo((current + 1) % total));
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo((current - 1 + total) % total));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo((current + 1) % total));
   dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+  // Touch swipe support
+  const slidesContainer = document.querySelector('.carousel-content');
+  if (slidesContainer) {
+    let touchStartX = 0;
+    slidesContainer.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    slidesContainer.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) goTo((current + 1) % total);
+        else goTo((current - 1 + total) % total);
+      }
+    });
+  }
 })();
 
 /* ── FAQ accordion ── */
 (function () {
   const items = document.querySelectorAll('.faq-item');
   items.forEach(item => {
-    item.addEventListener('click', () => {
+    function toggle() {
       const wasOpen = item.classList.contains('open');
-      items.forEach(i => i.classList.remove('open'));
-      if (!wasOpen) item.classList.add('open');
+      items.forEach(i => {
+        i.classList.remove('open');
+        i.setAttribute('aria-expanded', 'false');
+      });
+      if (!wasOpen) {
+        item.classList.add('open');
+        item.setAttribute('aria-expanded', 'true');
+      }
+    }
+    item.addEventListener('click', toggle);
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
     });
   });
 })();
@@ -199,6 +272,17 @@ requestAnimationFrame(animate);
    Page Reveal Animations
    ══════════════════════════════════════════════════ */
 (function () {
+  if (prefersReducedMotion) {
+    // Show everything immediately
+    document.querySelectorAll('.service-block').forEach(b => b.classList.add('in-view'));
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.add('is-visible'));
+    const fb = document.querySelector('.footer-btn');
+    const fbl = document.querySelector('.footer-block');
+    if (fb) fb.classList.add('is-visible');
+    if (fbl) fbl.classList.add('is-visible');
+    return;
+  }
+
   function splitLines(el) {
     const text = el.textContent.trim();
     const words = text.split(/\s+/);
@@ -223,23 +307,37 @@ requestAnimationFrame(animate);
     el.innerHTML = lines
       .map(
         (line, i) =>
-          `<span class="line-mask"><span class="line-inner" style="transition-delay:${i * 0.1}s">${line}</span></span>`
+          `<span class="line-mask"><span class="line-inner" style="transition-delay:${i * 0.14}s">${line}</span></span>`
       )
       .join('');
 
     return el.querySelectorAll('.line-inner');
   }
 
+  // Wait for fonts before splitting lines (avoids wrong line breaks)
   const heroText = document.querySelector('.hero-text');
   if (heroText) {
-    const heroLines = splitLines(heroText);
-    setTimeout(() => heroLines.forEach(l => l.classList.add('is-visible')), 400);
+    document.fonts.ready.then(() => {
+      const heroLines = splitLines(heroText);
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          heroLines.forEach(l => l.classList.add('is-visible'));
+          // Clean up will-change after animation completes
+          setTimeout(() => {
+            heroLines.forEach(l => { l.style.willChange = 'auto'; });
+          }, 1600);
+        }, 300);
+      });
+    });
   }
 
   const teamTitle = document.querySelector('.team-title');
   const faqTitle = document.querySelector('.faq-title');
-  if (teamTitle) splitLines(teamTitle);
-  if (faqTitle) splitLines(faqTitle);
+
+  document.fonts.ready.then(() => {
+    if (teamTitle) splitLines(teamTitle);
+    if (faqTitle) splitLines(faqTitle);
+  });
 
   const revealObserver = new IntersectionObserver(
     (entries, obs) => {
@@ -253,11 +351,13 @@ requestAnimationFrame(animate);
     { threshold: 0.15 }
   );
 
-  if (teamTitle) revealObserver.observe(teamTitle);
-  if (faqTitle) revealObserver.observe(faqTitle);
+  document.fonts.ready.then(() => {
+    if (teamTitle) revealObserver.observe(teamTitle);
+    if (faqTitle) revealObserver.observe(faqTitle);
+  });
 
   document.querySelectorAll('.faq-item').forEach((item, i) => {
-    item.style.transitionDelay = `${i * 0.12}s, ${i * 0.12}s, 0s`;
+    item.style.transitionDelay = `${i * 0.1}s, ${i * 0.1}s, 0s, 0s`;
     revealObserver.observe(item);
   });
 
