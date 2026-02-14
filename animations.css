@@ -2,6 +2,14 @@
    ATHENA — Motion Design
    ═══════════════════════════════════════════════ */
 
+/* ── Lenis smooth scroll ── */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
 /* ── Line Reveal System ── */
 .line-mask {
   overflow: hidden;
@@ -78,7 +86,8 @@
   transform: translateY(30px);
   transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
               transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              min-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+              min-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              padding-top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .faq-item.is-visible {

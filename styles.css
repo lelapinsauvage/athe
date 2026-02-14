@@ -439,15 +439,15 @@ body {
   position: relative;
   min-height: 7.8125vw; /* 150/1920 */
   display: flex;
-  align-items: center;
-  padding: 0 4.11vw; /* 79/1920 */
+  align-items: flex-start;
+  padding: 1.5625vw 4.11vw; /* vertically center question: (150-90)/2 = 30px */
   overflow: hidden;
-  transition: min-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: min-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              padding-top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .faq-item.open {
   min-height: 18vw;
-  align-items: flex-start;
   padding-top: 2.5vw;
 }
 
@@ -496,13 +496,14 @@ body {
   align-items: center;
   gap: 1.5vw;
   opacity: 0;
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.15s ease;
   pointer-events: none;
 }
 
 .faq-item.open .faq-right {
   opacity: 1;
   pointer-events: auto;
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
 }
 
 .faq-divider {
@@ -628,19 +629,17 @@ body {
   position: absolute;
   right: 9.79vw; /* 188/1920 mirror of left */
   top: 6.25vw; /* 120/1920 same as FOLGT UNS */
-  bottom: 7.24vw; /* 139/1920 same as AGB */
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  justify-content: space-between;
 }
 
 .footer-office-title {
   font-family: 'GT Walsheim', sans-serif;
-  font-weight: 500;
-  font-size: 3.125vw; /* 60/1920 */
-  line-height: 1.2;
-  letter-spacing: 1px;
+  font-weight: 400;
+  font-size: 2.604vw; /* 50/1920 */
+  line-height: 2.97vw; /* 57px bounding height */
+  letter-spacing: 0px;
   color: #282828;
   text-transform: uppercase;
   text-align: right;
@@ -654,15 +653,17 @@ body {
   letter-spacing: 0px;
   color: #282828;
   text-align: right;
+  margin-top: 1.51vw; /* 29/1920 below title */
 }
 
 .footer-copyright {
   font-family: 'GT Walsheim', sans-serif;
   font-weight: 400;
   font-style: oblique;
-  font-size: 0.833vw; /* 16/1920 */
-  line-height: 1.2;
+  font-size: 0.78125vw; /* 15/1920 */
+  line-height: 0.9375vw; /* 18/1920 */
   letter-spacing: 0px;
   color: #7E7E7E;
   text-align: right;
+  margin-top: 2.08vw; /* 40/1920 below address */
 }
