@@ -137,6 +137,13 @@
   opacity: 0.6;
 }
 
+@media (max-width: 768px) {
+  .carousel-arrow:hover {
+    transform: none;
+    opacity: 0.6;
+  }
+}
+
 .dot {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }

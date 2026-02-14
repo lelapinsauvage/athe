@@ -4,6 +4,7 @@ const blocks = document.querySelectorAll('.service-block');
 const totalBlocks = blocks.length;
 
 function updateHorizontalScroll() {
+  if (window.innerWidth <= 1024) return; // disabled on tablet/mobile
   const rect = wrapper.getBoundingClientRect();
   const scrollDistance = wrapper.offsetHeight - window.innerHeight;
   const progress = Math.min(Math.max(-rect.top / scrollDistance, 0), 1);

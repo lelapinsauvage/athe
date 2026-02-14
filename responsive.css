@@ -1,0 +1,551 @@
+/* ═══════════════════════════════════════════════
+   ATHENA — Responsive
+   Design base: 1920px
+   Tablet: ≤ 1024px
+   Mobile: ≤ 768px
+   ═══════════════════════════════════════════════ */
+
+/* ────────────────────────────────────────────────
+   TABLET
+   ──────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+
+  /* ── Hero ── */
+  .hero {
+    padding: 0 6vw;
+  }
+  .hero-text {
+    font-size: 4.8vw;
+    line-height: 5.8vw;
+  }
+
+  /* ── Services — disable horizontal scroll, stack vertical ── */
+  .services-wrapper {
+    height: auto;
+  }
+  .services {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+  .services-track {
+    flex-direction: column;
+    transform: none !important;
+  }
+  .service-block {
+    width: 100vw;
+    height: 80vh;
+    min-height: 500px;
+  }
+  .block-number {
+    font-size: 1.8vw;
+  }
+  .block-btn {
+    font-size: 1.6vw;
+    height: 4.5vw;
+    padding: 0 2.5vw;
+    border-radius: 2.25vw;
+  }
+  .block-text {
+    font-size: 2.2vw;
+    line-height: 2.8vw;
+    right: 15%;
+  }
+
+  /* ── Team Carousel ── */
+  .team {
+    height: auto;
+    min-height: 100vh;
+    padding-bottom: 5vh;
+  }
+  .team-title {
+    font-size: 5.5vw;
+    line-height: 6.5vw;
+  }
+  .carousel {
+    padding-top: 6vh;
+  }
+  .carousel-content {
+    padding: 0 10vw;
+  }
+  .carousel-slides {
+    height: 36vw;
+  }
+  .person-img {
+    width: 30vw;
+    height: 30vw;
+  }
+  .person-name,
+  .person-title,
+  .person-role {
+    font-size: 2.2vw;
+    line-height: 2.8vw;
+  }
+  .person-role {
+    margin-top: 1.5vw;
+  }
+  .person-desc {
+    font-size: 2vw;
+    line-height: 2.6vw;
+    margin-top: 2vw;
+  }
+  .carousel-arrow {
+    font-size: 3.5vw;
+  }
+  .arrow-left { left: 3vw; }
+  .arrow-right { right: 3vw; }
+
+  /* ── Stats ── */
+  .stats-number {
+    font-size: 13vw;
+  }
+  .stats-label {
+    font-size: 4vw;
+  }
+  .stats-intro {
+    font-size: 2.5vw;
+    max-width: 55vw;
+  }
+
+  /* ── FAQ ── */
+  .faq-title {
+    font-size: 5vw;
+    line-height: 6.5vw;
+    max-width: 70vw;
+  }
+  .faq-item {
+    min-height: 10vw;
+  }
+  .faq-item.open {
+    min-height: 22vw;
+  }
+  .faq-number,
+  .faq-question {
+    font-size: 2.2vw;
+    line-height: 3.5vw;
+  }
+  .faq-text {
+    font-size: 1.6vw;
+    line-height: 2.2vw;
+    width: auto;
+    max-width: 30vw;
+  }
+
+  /* ── Footer ── */
+  .footer-top {
+    height: 40vh;
+  }
+  .footer-btn {
+    font-size: 2.5vw;
+    width: 30vw;
+    height: 5.5vw;
+  }
+
+  /* Reset absolute positioning → flex layout */
+  .footer-block {
+    position: relative;
+    height: auto;
+    display: flex;
+    align-items: stretch;
+    padding: 5vw;
+  }
+  .footer-left {
+    position: relative;
+    inset: auto;
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 5vw;
+  }
+  .footer-social {
+    position: relative;
+    left: auto;
+    top: auto;
+  }
+  .footer-social-title {
+    font-size: 3.5vw;
+    line-height: 1.3;
+  }
+  .footer-linkedin svg {
+    width: 3vw;
+    height: 3vw;
+  }
+  .footer-links {
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: stretch;
+  }
+  .footer-link {
+    font-size: 1.4vw;
+    line-height: 1.4;
+  }
+  .footer-divider {
+    position: relative;
+    left: auto;
+    top: auto;
+    height: auto;
+    width: 1px;
+    align-self: stretch;
+    margin: 0 3vw;
+  }
+  .footer-right {
+    position: relative;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .footer-office-title {
+    font-size: 4vw;
+    line-height: 1.2;
+  }
+  .footer-address {
+    font-size: 1.6vw;
+    margin-top: 0;
+  }
+  .footer-copyright {
+    font-size: 1.2vw;
+    margin-top: 0;
+  }
+}
+
+/* ────────────────────────────────────────────────
+   MOBILE
+   ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* ── Hero ── */
+  .hero {
+    padding: 0 7vw;
+  }
+  .hero-text {
+    font-size: 3.8vw;
+    line-height: 5vw;
+  }
+
+  /* ── Image Separator ── */
+  .image-separator {
+    height: 60vh;
+  }
+
+  /* ── Services — vertical stack, flow layout ── */
+  .service-block {
+    width: 100vw;
+    height: auto;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 14vw 7vw;
+    gap: 8vw;
+  }
+  .block-header {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+  }
+  .block-text {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    font-size: 4.2vw;
+    line-height: 5.6vw;
+  }
+  .block-number {
+    font-size: 3.5vw;
+  }
+  .block-btn {
+    font-size: 3vw;
+    height: 9vw;
+    padding: 0 4vw;
+    border-radius: 4.5vw;
+    white-space: normal;
+    text-align: center;
+  }
+
+  /* ── Team Carousel ── */
+  .team {
+    height: auto;
+    min-height: auto;
+    padding-bottom: 5vh;
+  }
+  .team-title {
+    font-size: 8vw;
+    line-height: 10vw;
+    margin-top: 8vh;
+  }
+  .carousel {
+    padding-top: 4vh;
+  }
+  .carousel-content {
+    padding: 0 4vw;
+  }
+  .carousel-slides {
+    height: auto;
+    min-height: 140vw;
+  }
+  .slide-inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 6vw;
+  }
+  .person-img {
+    width: 60vw;
+    height: 60vw;
+  }
+  .person-info {
+    text-align: center;
+    align-items: center;
+    padding-top: 0;
+  }
+  .person-name {
+    font-size: 5.5vw;
+    line-height: 7vw;
+  }
+  .person-title {
+    font-size: 4vw;
+    line-height: 5.5vw;
+  }
+  .person-role {
+    font-size: 4vw;
+    line-height: 5.5vw;
+    margin-top: 4vw;
+  }
+  .person-desc {
+    font-size: 3.8vw;
+    line-height: 5vw;
+    max-width: 85vw;
+    margin-top: 4vw;
+  }
+  .carousel-arrow {
+    font-size: 7vw;
+    top: 30vw;
+    transform: none;
+  }
+  .arrow-left { left: 2vw; }
+  .arrow-right { right: 2vw; }
+  .dot {
+    width: 2.2vw;
+    height: 2.2vw;
+  }
+  .carousel-dots {
+    gap: 3vw;
+    padding-bottom: 3vh;
+  }
+
+  /* ── Stats ── */
+  .stats-wrapper {
+    height: 400vh;
+  }
+  .stats-number {
+    font-size: 16vw;
+    letter-spacing: 0;
+  }
+  .stats-label {
+    font-size: 5.5vw;
+    margin-top: 4vw;
+    line-height: 1.3;
+  }
+  .stats-intro {
+    font-size: 5vw;
+    line-height: 1.4;
+    max-width: 80vw;
+  }
+
+  /* ── FAQ — full-width stacked layout ── */
+  .faq {
+    padding-top: 8vh;
+    padding-bottom: 8vh;
+  }
+  .faq-title {
+    font-size: 7.5vw;
+    line-height: 9.5vw;
+    max-width: 90vw;
+    margin-bottom: 5vw;
+  }
+  .faq-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5vw 6vw;
+    min-height: auto;
+  }
+  .faq-item.open {
+    min-height: auto;
+    align-items: flex-start;
+    padding-top: 5vw;
+  }
+  .faq-left {
+    max-width: 100%;
+  }
+  .faq-number {
+    font-size: 4vw;
+    line-height: 1.4;
+  }
+  .faq-question {
+    font-size: 4vw;
+    line-height: 1.4;
+  }
+
+  /* Answer drops below question instead of absolute right */
+  .faq-right {
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    width: 100%;
+    margin-top: 0;
+    flex-direction: column;
+    gap: 4vw;
+    display: none;
+  }
+  .faq-item.open .faq-right {
+    display: flex;
+    opacity: 1;
+    margin-top: 4vw;
+  }
+  .faq-divider {
+    width: 100%;
+    height: 2px;
+  }
+  .faq-text {
+    font-size: 4vw;
+    line-height: 5.5vw;
+    width: 100%;
+  }
+
+  /* ── Footer ── */
+  .footer-top {
+    height: 30vh;
+  }
+  .footer-btn {
+    font-size: 4.5vw;
+    width: 55vw;
+    height: 12vw;
+    border-radius: 6vw;
+  }
+
+  /* Stack footer block vertically */
+  .footer-block {
+    position: relative;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 8vw 7vw;
+    gap: 8vw;
+  }
+  .footer-left {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6vw;
+  }
+  .footer-social {
+    position: relative;
+    left: auto;
+    top: auto;
+  }
+  .footer-social-title {
+    font-size: 7vw;
+    line-height: 1.2;
+  }
+  .footer-linkedin {
+    margin-top: 2vw;
+  }
+  .footer-linkedin svg {
+    width: 7vw;
+    height: 7vw;
+  }
+  .footer-links {
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4vw;
+  }
+  .footer-link {
+    font-size: 3.2vw;
+    line-height: 1.4;
+  }
+
+  /* Horizontal divider on mobile */
+  .footer-divider {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: 1px;
+    margin: 0;
+  }
+  .footer-right {
+    position: relative;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    align-items: flex-start;
+    gap: 4vw;
+  }
+  .footer-office-title {
+    font-size: 8vw;
+    line-height: 1.2;
+    text-align: left;
+  }
+  .footer-address {
+    font-size: 3.8vw;
+    text-align: left;
+    margin-top: 0;
+  }
+  .footer-copyright {
+    font-size: 3vw;
+    text-align: left;
+    margin-top: 0;
+  }
+}
+
+/* ────────────────────────────────────────────────
+   SMALL MOBILE (≤ 480px)
+   ──────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .hero-text {
+    font-size: 7.5vw;
+    line-height: 9.5vw;
+  }
+
+  .block-btn {
+    font-size: 3.2vw;
+    height: 10vw;
+    padding: 0 4.5vw;
+  }
+  .block-text {
+    font-size: 4.5vw;
+    line-height: 6vw;
+  }
+
+  .person-img {
+    width: 70vw;
+    height: 70vw;
+  }
+  .carousel-slides {
+    min-height: 160vw;
+  }
+
+  .stats-number {
+    font-size: 18vw;
+  }
+  .stats-label {
+    font-size: 6vw;
+  }
+}
