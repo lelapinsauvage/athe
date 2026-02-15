@@ -241,6 +241,7 @@ body {
 .carousel-slides {
   position: relative;
   height: 25.4vw;
+  overflow: hidden;
 }
 
 .carousel-slide {
@@ -250,8 +251,6 @@ body {
   left: 0;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity;
 }
 
 .carousel-slide.active {
@@ -450,11 +449,11 @@ body {
   position: relative;
   min-height: 7.8125vw; /* 150/1920 */
   display: flex;
-  align-items: center;
-  padding: 1.5625vw 4.11vw;
+  align-items: flex-start;
+  padding: 2.9vw 4.11vw 1.5625vw;
   overflow: hidden;
-  transition: min-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              padding-top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: min-height 600ms cubic-bezier(0.16, 1, 0.3, 1),
+              padding-top 600ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .faq-item.open {
@@ -509,14 +508,14 @@ body {
   align-items: center;
   justify-content: space-between;
   opacity: 0;
-  transition: opacity 0.15s ease;
+  transition: opacity 350ms cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
 .faq-item.open .faq-right {
   opacity: 1;
   pointer-events: auto;
-  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+  transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
 }
 
 .faq-divider {

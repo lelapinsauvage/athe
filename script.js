@@ -193,7 +193,7 @@ function animate(time) {
 }
 requestAnimationFrame(animate);
 
-/* ── Team Carousel ── */
+/* ── Team Carousel (directional slide) ── */
 (function () {
   const slideEls = document.querySelectorAll('.carousel-slide');
   const dots = document.querySelectorAll('.dot');
@@ -203,6 +203,7 @@ requestAnimationFrame(animate);
   if (total === 0) return;
 
   let current = 0;
+  let isAnimating = false;
 
   slideEls[0].classList.add('active');
   dots.forEach((d, i) => d.classList.toggle('active', i === 0));
@@ -212,18 +213,60 @@ requestAnimationFrame(animate);
     if (i !== 0) s.setAttribute('aria-hidden', 'true');
   });
 
-  function goTo(index) {
-    if (index === current) return;
-    slideEls[current].classList.remove('active');
-    slideEls[current].setAttribute('aria-hidden', 'true');
-    current = (index + total) % total;
-    slideEls[current].classList.add('active');
-    slideEls[current].removeAttribute('aria-hidden');
-    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  function goTo(index, direction) {
+    if (index === current || isAnimating) return;
+    isAnimating = true;
+
+    if (direction === undefined) direction = index > current ? 1 : -1;
+
+    const outgoing = slideEls[current];
+    const incoming = slideEls[index];
+
+    // Position incoming offscreen (no transition yet)
+    incoming.style.opacity = '1';
+    incoming.style.pointerEvents = 'auto';
+    incoming.style.transform = direction > 0 ? 'translateX(100%)' : 'translateX(-100%)';
+    incoming.style.zIndex = '2';
+
+    // Force reflow
+    incoming.offsetHeight;
+
+    // Add transition class
+    incoming.classList.add('sliding');
+    outgoing.classList.add('sliding');
+
+    // Force reflow so browser registers the transition before animating
+    incoming.offsetHeight;
+
+    incoming.style.transform = 'translateX(0)';
+    outgoing.style.transform = direction > 0 ? 'translateX(-100%)' : 'translateX(100%)';
+
+    setTimeout(() => {
+      // Clean up outgoing
+      outgoing.classList.remove('active', 'sliding');
+      outgoing.style.transform = '';
+      outgoing.style.opacity = '';
+      outgoing.style.pointerEvents = '';
+      outgoing.style.zIndex = '';
+      outgoing.setAttribute('aria-hidden', 'true');
+
+      // Clean up incoming
+      incoming.classList.remove('sliding');
+      incoming.classList.add('active');
+      incoming.style.transform = '';
+      incoming.style.opacity = '';
+      incoming.style.pointerEvents = '';
+      incoming.style.zIndex = '';
+      incoming.removeAttribute('aria-hidden');
+
+      current = index;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      isAnimating = false;
+    }, 480);
   }
 
-  if (prevBtn) prevBtn.addEventListener('click', () => goTo((current - 1 + total) % total));
-  if (nextBtn) nextBtn.addEventListener('click', () => goTo((current + 1) % total));
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo((current - 1 + total) % total, -1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo((current + 1) % total, 1));
   dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
 
   // Touch swipe support
@@ -236,8 +279,8 @@ requestAnimationFrame(animate);
     slidesContainer.addEventListener('touchend', (e) => {
       const diff = touchStartX - e.changedTouches[0].screenX;
       if (Math.abs(diff) > 50) {
-        if (diff > 0) goTo((current + 1) % total);
-        else goTo((current - 1 + total) % total);
+        if (diff > 0) goTo((current + 1) % total, 1);
+        else goTo((current - 1 + total) % total, -1);
       }
     });
   }
@@ -249,13 +292,21 @@ requestAnimationFrame(animate);
   items.forEach(item => {
     function toggle() {
       const wasOpen = item.classList.contains('open');
+      const anyOpen = [...items].some(i => i.classList.contains('open'));
       items.forEach(i => {
         i.classList.remove('open');
         i.setAttribute('aria-expanded', 'false');
       });
       if (!wasOpen) {
-        item.classList.add('open');
-        item.setAttribute('aria-expanded', 'true');
+        if (anyOpen) {
+          setTimeout(() => {
+            item.classList.add('open');
+            item.setAttribute('aria-expanded', 'true');
+          }, 120);
+        } else {
+          item.classList.add('open');
+          item.setAttribute('aria-expanded', 'true');
+        }
       }
     }
     item.addEventListener('click', toggle);
@@ -307,7 +358,7 @@ requestAnimationFrame(animate);
     el.innerHTML = lines
       .map(
         (line, i) =>
-          `<span class="line-mask"><span class="line-inner" style="transition-delay:${i * 0.14}s">${line}</span></span>`
+          `<span class="line-mask"><span class="line-inner" style="transition-delay:${i * 0.10}s">${line}</span></span>`
       )
       .join('');
 
@@ -325,7 +376,7 @@ requestAnimationFrame(animate);
           // Clean up will-change after animation completes
           setTimeout(() => {
             heroLines.forEach(l => { l.style.willChange = 'auto'; });
-          }, 1600);
+          }, 1000);
         }, 300);
       });
     });
@@ -357,8 +408,15 @@ requestAnimationFrame(animate);
   });
 
   document.querySelectorAll('.faq-item').forEach((item, i) => {
-    item.style.transitionDelay = `${i * 0.1}s, ${i * 0.1}s, 0s, 0s`;
+    item.style.transitionDelay = `${i * 0.06}s, ${i * 0.06}s, 0s, 0s`;
     revealObserver.observe(item);
+    // Clear stagger delay after reveal completes so it doesn't affect open/close
+    item.addEventListener('transitionend', function clearDelay(e) {
+      if (e.propertyName === 'opacity') {
+        item.style.transitionDelay = '';
+        item.removeEventListener('transitionend', clearDelay);
+      }
+    });
   });
 
   const footerBtn = document.querySelector('.footer-btn');

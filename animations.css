@@ -1,11 +1,12 @@
 /* ═══════════════════════════════════════════════
    ATHENA — Motion Design
+   Unified: cubic-bezier(0.16, 1, 0.3, 1) · max 500ms
    ═══════════════════════════════════════════════ */
 
 /* ── Page load curtain ── */
 body {
   opacity: 0;
-  animation: pageReveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+  animation: pageReveal 500ms cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
 }
 
 @keyframes pageReveal {
@@ -31,8 +32,8 @@ html.lenis, html.lenis body {
   display: block;
   transform: translateY(105%);
   opacity: 0;
-  transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 }
 
@@ -49,16 +50,16 @@ html.lenis, html.lenis body {
 /* ── Service Block Content Reveal ── */
 .service-block .block-header {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(16px);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .service-block .block-text {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s,
-              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+  transform: translateY(16px);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
 }
 
 .service-block.in-view .block-header,
@@ -67,51 +68,20 @@ html.lenis, html.lenis body {
   transform: translateY(0);
 }
 
-/* ── Carousel Person Info Stagger ── */
-.carousel-slide .person-name,
-.carousel-slide .person-title,
-.carousel-slide .person-role,
-.carousel-slide .person-desc {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: 0s;
-}
-
-.carousel-slide.active .person-name  { opacity: 1; transform: translateY(0); transition-delay: 0.25s; transition-duration: 0.7s; }
-.carousel-slide.active .person-title { opacity: 1; transform: translateY(0); transition-delay: 0.35s; transition-duration: 0.7s; }
-.carousel-slide.active .person-role  { opacity: 1; transform: translateY(0); transition-delay: 0.45s; transition-duration: 0.7s; }
-.carousel-slide.active .person-desc  { opacity: 1; transform: translateY(0); transition-delay: 0.55s; transition-duration: 0.7s; }
-
-/* Carousel image subtle zoom-settle */
-.carousel-slide .person-img {
-  transform: scale(1.05);
-  transition: transform 0.3s ease-out;
-}
-
-.carousel-slide.active .person-img {
-  transform: scale(1);
-  transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
-}
-
-/* Carousel slide crossfade: fast out, delayed in */
-.carousel-slide {
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.carousel-slide.active {
-  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+/* ── Carousel Slide Transition ── */
+.carousel-slide.sliding {
+  transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 450ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ── FAQ Items Scroll Reveal ── */
 .faq-item {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              min-height 0.35s cubic-bezier(0.4, 0, 0, 1),
-              padding-top 0.35s cubic-bezier(0.4, 0, 0, 1);
+  transform: translateY(16px);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              min-height 600ms cubic-bezier(0.16, 1, 0.3, 1),
+              padding-top 600ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .faq-item.is-visible {
@@ -119,33 +89,26 @@ html.lenis, html.lenis body {
   transform: translateY(0);
 }
 
-/* Open state uses deceleration curve */
 .faq-item.open {
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              min-height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-              padding-top 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              min-height 600ms cubic-bezier(0.16, 1, 0.3, 1),
+              padding-top 600ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* FAQ divider grow animation */
+/* FAQ divider — no animation */
 .faq-divider {
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
-}
-
-.faq-item.open .faq-divider {
-  transform: scaleY(1);
+  transform: none;
 }
 
 /* ── Footer Reveals ── */
 .footer-btn {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-              background-color 0.4s ease,
-              color 0.4s ease;
+  transform: translateY(16px);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 300ms cubic-bezier(0.16, 1, 0.3, 1),
+              color 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .footer-btn.is-visible {
@@ -155,31 +118,15 @@ html.lenis, html.lenis body {
 
 .footer-block {
   opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s,
-              transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s;
+  transform: translateY(16px);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
 }
 
 .footer-block.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
-
-/* Footer block internal staggers */
-.footer-block .footer-social,
-.footer-block .footer-links,
-.footer-block .footer-divider,
-.footer-block .footer-right {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.footer-block.is-visible .footer-social  { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
-.footer-block.is-visible .footer-links   { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
-.footer-block.is-visible .footer-divider { opacity: 1; transform: translateY(0); transition-delay: 0.55s; }
-.footer-block.is-visible .footer-right   { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
 
 /* ── Hover Effects ── */
 .footer-btn:hover {
@@ -188,7 +135,7 @@ html.lenis, html.lenis body {
 }
 
 .block-btn {
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .block-btn:hover {
@@ -196,28 +143,21 @@ html.lenis, html.lenis body {
 }
 
 .carousel-arrow {
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 0.3s ease;
+  transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .carousel-arrow:hover {
-  transform: translateY(-50%) scale(1.2);
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 @media (max-width: 768px) {
   .carousel-arrow:hover {
-    transform: none;
-    opacity: 0.6;
+    opacity: 0.5;
   }
 }
 
 .dot {
-  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.dot.active {
-  transform: scale(1.3);
+  transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dot:hover {
@@ -238,7 +178,7 @@ html.lenis, html.lenis body {
   background: #282828;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .footer-link:hover::after {
@@ -257,40 +197,17 @@ html.lenis, html.lenis body {
     opacity: 1;
   }
   .carousel-slide,
-  .carousel-slide.active {
+  .carousel-slide.active,
+  .carousel-slide.sliding {
     transition: none;
-  }
-  .carousel-slide .person-name,
-  .carousel-slide .person-title,
-  .carousel-slide .person-role,
-  .carousel-slide .person-desc {
-    transition: none;
-    opacity: 1;
-    transform: none;
-  }
-  .carousel-slide .person-img {
-    transition: none;
-    transform: none;
   }
   .faq-item {
     transition: none;
     opacity: 1;
     transform: none;
   }
-  .faq-divider {
-    transition: none;
-    transform: none;
-  }
   .footer-btn,
   .footer-block {
-    transition: none;
-    opacity: 1;
-    transform: none;
-  }
-  .footer-block .footer-social,
-  .footer-block .footer-links,
-  .footer-block .footer-divider,
-  .footer-block .footer-right {
     transition: none;
     opacity: 1;
     transform: none;
@@ -304,19 +221,9 @@ html.lenis, html.lenis body {
 }
 
 /* ── Mobile motion optimizations ── */
-@media (max-width: 768px) {
-  .carousel-slide .person-img {
-    transform: none;
-    transition: none;
-  }
-  .carousel-slide.active .person-img {
-    transform: none;
-  }
-}
-
 @media (max-width: 480px) {
   .line-inner {
-    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1),
-                opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 350ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 }

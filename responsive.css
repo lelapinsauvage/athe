@@ -429,9 +429,9 @@
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                margin-top 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: max-height 500ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 400ms cubic-bezier(0.16, 1, 0.3, 1),
+                margin-top 500ms cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
   }
   .faq-item.open .faq-right {
@@ -439,9 +439,9 @@
     opacity: 1;
     margin-top: 4vw;
     pointer-events: auto;
-    transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-                opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s,
-                margin-top 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: max-height 500ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 400ms cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+                margin-top 500ms cubic-bezier(0.16, 1, 0.3, 1);
   }
   .faq-divider {
     width: 100%;
