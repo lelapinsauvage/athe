@@ -84,7 +84,7 @@ Import these 7 snippets **one at a time** into HTMLtoFlow. Each becomes native, 
       <div class="service-block block-3">
         <div class="block-header">
           <span class="block-number">3</span>
-          <a href="#" class="block-btn btn-blue">ATHENA IMMOBILIENMANAGEMENT</a>
+          <a href="#" class="block-btn btn-gold">ATHENA INVEST</a>
         </div>
         <p class="block-text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea.</p>
       </div>
@@ -314,13 +314,15 @@ Import these 7 snippets **one at a time** into HTMLtoFlow. Each becomes native, 
 
 ```html
 <!-- Lenis Smooth Scroll CSS -->
-<link rel="stylesheet" href="https://unpkg.com/lenis@1.3.17/dist/lenis.css">
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css">
 
 <!-- ATHENA Complete CSS -->
 <style>
 /* ═══════════════════════════════════════════════════════════
    ATHENA — Complete Stylesheet (Webflow)
    Base styles + Animations + Responsive
+
+   Unified easing: cubic-bezier(0.16, 1, 0.3, 1) · max 500ms
 
    Animation guard: .js-ready class (added by JS on published site)
    - Editor: JS doesn't run → .js-ready never added → all content visible
@@ -335,6 +337,10 @@ Import these 7 snippets **one at a time** into HTMLtoFlow. Each becomes native, 
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  background: #EFE7E1;
 }
 
 body {
@@ -490,15 +496,11 @@ button {
   color: #282828;
   text-transform: uppercase;
   white-space: nowrap;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.block-btn:hover {
-  transform: scale(1.05);
 }
 
 .btn-blue { background: #9ABDEF; }
 .btn-red { background: #E8828A; }
+.btn-gold { background: #F7D071; }
 
 .block-text {
   position: absolute;
@@ -560,13 +562,6 @@ button {
   z-index: 2;
   padding: 0;
   line-height: 1;
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 0.3s ease;
-}
-
-.carousel-arrow:hover {
-  transform: translateY(-50%) scale(1.2);
-  opacity: 0.6;
 }
 
 .arrow-left {
@@ -587,6 +582,7 @@ button {
 .carousel-slides {
   position: relative;
   height: 25.4vw;
+  overflow: hidden;
 }
 
 /* Carousel slides: hidden by default on published site */
@@ -600,15 +596,12 @@ button {
   position: absolute;
   top: 0;
   left: 0;
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity;
 }
 
 .js-ready .carousel-slide.active {
   opacity: 1;
   pointer-events: auto;
   z-index: 1;
-  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
 }
 
 .slide-inner {
@@ -687,12 +680,11 @@ button {
   cursor: pointer;
   opacity: 0.4;
   padding: 0;
-  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dot.active {
   opacity: 1;
-  transform: scale(1.3);
 }
 
 .dot:hover {
@@ -810,19 +802,17 @@ button {
   position: relative;
   min-height: 7.8125vw;
   display: flex;
-  align-items: center;
-  padding: 1.5625vw 4.11vw;
+  align-items: flex-start;
+  padding: 2.9vw 4.11vw 1.5625vw;
   overflow: hidden;
-  transition: min-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              padding-top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: min-height 500ms cubic-bezier(0.4, 0, 0.2, 1),
+              padding-top 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .faq-item.open {
   min-height: 18vw;
   padding-top: 2.5vw;
   align-items: flex-start;
-  transition: min-height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-              padding-top 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .faq-item:nth-child(odd) {
@@ -876,13 +866,13 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: opacity 0.15s ease;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .faq-item.open .faq-right {
   opacity: 1;
   pointer-events: auto;
-  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
 }
 
 .faq-divider {
@@ -900,6 +890,7 @@ button {
   letter-spacing: 0px;
   color: #6C6C6C;
   max-width: 23.23vw;
+  text-align: left;
 }
 
 /* ─────────────────────────────────────────────────
@@ -933,11 +924,6 @@ button {
   letter-spacing: 0px;
   color: #171717;
   text-transform: uppercase;
-}
-
-.footer-btn:hover {
-  background: #171717;
-  color: #EFE7E1;
 }
 
 .footer-block {
@@ -1002,25 +988,8 @@ button {
   color: #282828;
   text-transform: uppercase;
   text-decoration: none;
-  position: relative;
 }
 
-.footer-link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: #282828;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.footer-link:hover::after {
-  transform: scaleX(1);
-}
 
 .footer-divider {
   position: absolute;
@@ -1076,6 +1045,8 @@ button {
 
 /* ═══════════════════════════════════════════════════════════
    ANIMATIONS & MOTION
+   Unified easing: cubic-bezier(0.16, 1, 0.3, 1) · max 500ms
+
    .js-ready guard: JS adds this class on published site.
    In the editor, JS doesn't run → class absent → content visible.
    ═══════════════════════════════════════════════════════════ */
@@ -1085,7 +1056,7 @@ button {
    It must hide the body BEFORE JS loads to prevent FOUC. */
 html:not(.w-editor) body {
   opacity: 0;
-  animation: pageReveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+  animation: pageReveal 500ms cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
 }
 @keyframes pageReveal {
   to { opacity: 1; }
@@ -1098,12 +1069,6 @@ html.lenis, html.lenis body {
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
 
 /* ── Line Reveal System ── */
 .line-mask {
@@ -1115,8 +1080,8 @@ html.lenis, html.lenis body {
   display: block;
   transform: translateY(105%);
   opacity: 0;
-  transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 }
 .js-ready .line-inner.is-visible {
@@ -1127,15 +1092,15 @@ html.lenis, html.lenis body {
 /* ── Service Block Content Reveal ── */
 .js-ready .service-block .block-header {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(16px);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .js-ready .service-block .block-text {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s,
-              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
+  transform: translateY(16px);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
 }
 .js-ready .service-block.in-view .block-header,
 .js-ready .service-block.in-view .block-text {
@@ -1143,70 +1108,45 @@ html.lenis, html.lenis body {
   transform: translateY(0);
 }
 
-/* ── Carousel Person Info Stagger ── */
-.js-ready .carousel-slide .person-name,
-.js-ready .carousel-slide .person-title,
-.js-ready .carousel-slide .person-role,
-.js-ready .carousel-slide .person-desc {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: 0s;
-}
-.js-ready .carousel-slide.active .person-name  { opacity: 1; transform: translateY(0); transition-delay: 0.25s; transition-duration: 0.7s; }
-.js-ready .carousel-slide.active .person-title { opacity: 1; transform: translateY(0); transition-delay: 0.35s; transition-duration: 0.7s; }
-.js-ready .carousel-slide.active .person-role  { opacity: 1; transform: translateY(0); transition-delay: 0.45s; transition-duration: 0.7s; }
-.js-ready .carousel-slide.active .person-desc  { opacity: 1; transform: translateY(0); transition-delay: 0.55s; transition-duration: 0.7s; }
-
-/* Carousel image zoom-settle */
-.carousel-slide .person-img {
-  transform: scale(1.05);
-  transition: transform 0.3s ease-out;
-}
-.js-ready .carousel-slide.active .person-img {
-  transform: scale(1);
-  transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+/* ── Carousel Slide Transition (directional horizontal slide) ── */
+.js-ready .carousel-slide.sliding {
+  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 650ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ── FAQ Items Scroll Reveal ── */
 .js-ready .faq-item {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              min-height 0.35s cubic-bezier(0.4, 0, 0, 1),
-              padding-top 0.35s cubic-bezier(0.4, 0, 0, 1);
+  transform: translateY(16px);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              min-height 500ms cubic-bezier(0.4, 0, 0.2, 1),
+              padding-top 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .js-ready .faq-item.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 .js-ready .faq-item.open {
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              min-height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-              padding-top 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              min-height 600ms cubic-bezier(0.16, 1, 0.3, 1),
+              padding-top 600ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* FAQ divider grow */
+/* FAQ divider — no animation */
 .js-ready .faq-divider {
-  transform: scaleY(0);
-  transform-origin: top;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
-}
-.faq-item.open .faq-divider {
-  transform: scaleY(1);
+  transform: none;
 }
 
 /* ── Footer Reveals ── */
 .js-ready .footer-btn {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-              background-color 0.4s ease,
-              color 0.4s ease;
+  transform: translateY(16px);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 300ms cubic-bezier(0.16, 1, 0.3, 1),
+              color 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .js-ready .footer-btn.is-visible {
   opacity: 1;
@@ -1215,47 +1155,38 @@ html.lenis, html.lenis body {
 
 .js-ready .footer-block {
   opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s,
-              transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s;
+  transform: translateY(16px);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
 }
 .js-ready .footer-block.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Footer internal staggers */
-.js-ready .footer-block .footer-social,
-.js-ready .footer-block .footer-links,
-.js-ready .footer-block .footer-divider,
-.js-ready .footer-block .footer-right {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+/* ── Hover Effects ── */
+.footer-btn:hover {
+  background: #171717;
+  color: #EFE7E1;
 }
-.js-ready .footer-block.is-visible .footer-social  { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
-.js-ready .footer-block.is-visible .footer-links   { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
-.js-ready .footer-block.is-visible .footer-divider { opacity: 1; transform: translateY(0); transition-delay: 0.55s; }
-.js-ready .footer-block.is-visible .footer-right   { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
+
+.block-btn {
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.block-btn:hover {
+  transform: scale(1.05);
+}
+
 
 /* ── Reduced Motion ── */
 @media (prefers-reduced-motion: reduce) {
   body { animation: none; opacity: 1; }
   .line-inner { transition: none; transform: none; opacity: 1; }
-  .carousel-slide, .carousel-slide.active { transition: none; }
-  .carousel-slide .person-name,
-  .carousel-slide .person-title,
-  .carousel-slide .person-role,
-  .carousel-slide .person-desc { transition: none; opacity: 1; transform: none; }
-  .carousel-slide .person-img { transition: none; transform: none; }
+  .carousel-slide,
+  .carousel-slide.active,
+  .carousel-slide.sliding { transition: none; }
   .faq-item { transition: none; opacity: 1; transform: none; }
-  .faq-divider { transition: none; transform: none; }
   .footer-btn, .footer-block { transition: none; opacity: 1; transform: none; }
-  .footer-block .footer-social,
-  .footer-block .footer-links,
-  .footer-block .footer-divider,
-  .footer-block .footer-right { transition: none; opacity: 1; transform: none; }
   .service-block .block-header,
   .service-block .block-text { transition: none; opacity: 1; transform: none; }
 }
@@ -1606,10 +1537,6 @@ html.lenis, html.lenis body {
     align-items: center;
     justify-content: center;
   }
-  .carousel-arrow:hover {
-    transform: none;
-    opacity: 0.6;
-  }
   .arrow-left { left: 2vw; }
   .arrow-right { right: 2vw; }
   .dot {
@@ -1679,9 +1606,9 @@ html.lenis, html.lenis body {
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                margin-top 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: max-height 500ms cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+                margin-top 500ms cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
   }
   .faq-right {
@@ -1700,9 +1627,9 @@ html.lenis, html.lenis body {
     opacity: 1;
     margin-top: 4vw;
     pointer-events: auto;
-    transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-                opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s,
-                margin-top 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: max-height 500ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 400ms cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+                margin-top 500ms cubic-bezier(0.16, 1, 0.3, 1);
   }
   .faq-divider {
     width: 100%;
@@ -1815,15 +1742,6 @@ html.lenis, html.lenis body {
     text-align: left;
     margin-top: 0;
   }
-
-  /* ── Mobile motion optimizations ── */
-  .carousel-slide .person-img {
-    transform: none;
-    transition: none;
-  }
-  .carousel-slide.active .person-img {
-    transform: none;
-  }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1861,8 +1779,8 @@ html.lenis, html.lenis body {
   }
 
   .line-inner {
-    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1),
-                opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 350ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 </style>
@@ -1876,7 +1794,7 @@ html.lenis, html.lenis body {
 
 ```html
 <!-- Lenis Smooth Scroll Library -->
-<script src="https://unpkg.com/lenis@1.3.17/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 
 <!-- ATHENA Motion Engine -->
 <script>
@@ -1907,14 +1825,11 @@ html.lenis, html.lenis body {
 
   try {
     lenis = new Lenis({
-      lerp: isMobile ? 0.12 : 0.1,
-      wheelMultiplier: 0.7,
-      orientation: "vertical",
-      gestureOrientation: "vertical",
+      duration: isMobile ? 1.0 : 1.4,
+      easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
       smoothWheel: !isMobile,
       syncTouch: false,
-      normalizeWheel: false,
-      autoRaf: false,
+      touchMultiplier: 1.5,
     });
     window.lenis = lenis;
   } catch (e) {
@@ -2118,16 +2033,17 @@ html.lenis, html.lenis body {
   requestAnimationFrame(animate);
 
   /* ══════════════════════════════════════════════════
-     TEAM CAROUSEL
+     TEAM CAROUSEL (directional horizontal slide)
      ══════════════════════════════════════════════════ */
   var slideEls = document.querySelectorAll(".carousel-slide");
-  var dots = document.querySelectorAll(".dot");
+  var dots = document.querySelectorAll(".carousel-dots .dot");
   var prevBtn = document.querySelector(".arrow-left");
   var nextBtn = document.querySelector(".arrow-right");
   var totalSlides = slideEls.length;
 
   if (totalSlides > 0) {
     var currentSlide = 0;
+    var isAnimating = false;
 
     slideEls[0].classList.add("active");
     for (var d = 0; d < dots.length; d++) {
@@ -2139,32 +2055,77 @@ html.lenis, html.lenis body {
       slideEls[s].setAttribute("aria-hidden", "true");
     }
 
-    function goToSlide(index) {
-      if (index === currentSlide) return;
-      slideEls[currentSlide].classList.remove("active");
-      slideEls[currentSlide].setAttribute("aria-hidden", "true");
-      currentSlide = (index + totalSlides) % totalSlides;
-      slideEls[currentSlide].classList.add("active");
-      slideEls[currentSlide].removeAttribute("aria-hidden");
-      for (var d = 0; d < dots.length; d++) {
-        dots[d].classList.toggle("active", d === currentSlide);
-      }
+    function goTo(index, direction) {
+      if (index === currentSlide || isAnimating) return;
+      if (!slideEls[index]) return;
+      isAnimating = true;
+
+      if (direction === undefined) direction = index > currentSlide ? 1 : -1;
+
+      var outgoing = slideEls[currentSlide];
+      var incoming = slideEls[index];
+
+      /* Position incoming offscreen (no transition yet) */
+      incoming.style.opacity = "0";
+      incoming.style.pointerEvents = "auto";
+      incoming.style.transform = direction > 0 ? "translateX(100%)" : "translateX(-100%)";
+      incoming.style.zIndex = "2";
+
+      /* Force reflow */
+      incoming.offsetHeight;
+
+      /* Add transition class */
+      incoming.classList.add("sliding");
+      outgoing.classList.add("sliding");
+
+      /* Force reflow so browser registers the transition before animating */
+      incoming.offsetHeight;
+
+      incoming.style.transform = "translateX(0)";
+      incoming.style.opacity = "1";
+      outgoing.style.transform = direction > 0 ? "translateX(-100%)" : "translateX(100%)";
+      outgoing.style.opacity = "0";
+
+      setTimeout(function () {
+        /* Clean up outgoing */
+        outgoing.classList.remove("active", "sliding");
+        outgoing.style.transform = "";
+        outgoing.style.opacity = "";
+        outgoing.style.pointerEvents = "";
+        outgoing.style.zIndex = "";
+        outgoing.setAttribute("aria-hidden", "true");
+
+        /* Clean up incoming */
+        incoming.classList.remove("sliding");
+        incoming.classList.add("active");
+        incoming.style.transform = "";
+        incoming.style.opacity = "";
+        incoming.style.pointerEvents = "";
+        incoming.style.zIndex = "";
+        incoming.removeAttribute("aria-hidden");
+
+        currentSlide = index;
+        for (var d = 0; d < dots.length; d++) {
+          dots[d].classList.toggle("active", d === currentSlide);
+        }
+        isAnimating = false;
+      }, 680);
     }
 
     if (prevBtn) {
       prevBtn.addEventListener("click", function () {
-        goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+        goTo((currentSlide - 1 + totalSlides) % totalSlides, -1);
       });
     }
     if (nextBtn) {
       nextBtn.addEventListener("click", function () {
-        goToSlide((currentSlide + 1) % totalSlides);
+        goTo((currentSlide + 1) % totalSlides, 1);
       });
     }
-    for (var di = 0; di < dots.length; di++) {
+    for (var di = 0; di < dots.length && di < totalSlides; di++) {
       (function (idx) {
         dots[idx].addEventListener("click", function () {
-          goToSlide(idx);
+          goTo(idx);
         });
       })(di);
     }
@@ -2179,8 +2140,8 @@ html.lenis, html.lenis body {
       slidesContainer.addEventListener("touchend", function (e) {
         var diff = touchStartX - e.changedTouches[0].screenX;
         if (Math.abs(diff) > 50) {
-          if (diff > 0) goToSlide((currentSlide + 1) % totalSlides);
-          else goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+          if (diff > 0) goTo((currentSlide + 1) % totalSlides, 1);
+          else goTo((currentSlide - 1 + totalSlides) % totalSlides, -1);
         }
       });
     }
@@ -2190,31 +2151,60 @@ html.lenis, html.lenis body {
      FAQ ACCORDION
      ══════════════════════════════════════════════════ */
   var faqItems = document.querySelectorAll(".faq-item");
+  var faqList = document.querySelector(".faq-list");
+  var isTouchDevice = window.matchMedia("(max-width: 768px)").matches;
 
-  for (var fi = 0; fi < faqItems.length; fi++) {
+  function openFaqItem(item) {
+    for (var j = 0; j < faqItems.length; j++) {
+      faqItems[j].classList.remove("open");
+      faqItems[j].setAttribute("aria-expanded", "false");
+    }
+    item.classList.add("open");
+    item.setAttribute("aria-expanded", "true");
+  }
+
+  function closeAllFaq() {
+    for (var j = 0; j < faqItems.length; j++) {
+      faqItems[j].classList.remove("open");
+      faqItems[j].setAttribute("aria-expanded", "false");
+    }
+  }
+
+  if (isTouchDevice) {
+    /* Mobile: click to toggle */
+    for (var fi = 0; fi < faqItems.length; fi++) {
+      (function (item) {
+        item.addEventListener("click", function () {
+          if (item.classList.contains("open")) closeAllFaq();
+          else openFaqItem(item);
+        });
+      })(faqItems[fi]);
+    }
+  } else {
+    /* Desktop: hover to open */
+    for (var fi = 0; fi < faqItems.length; fi++) {
+      (function (item) {
+        item.addEventListener("mouseenter", function () {
+          openFaqItem(item);
+        });
+      })(faqItems[fi]);
+    }
+    if (faqList) {
+      faqList.addEventListener("mouseleave", closeAllFaq);
+    }
+  }
+
+  /* Keyboard: always works */
+  for (var fk = 0; fk < faqItems.length; fk++) {
     (function (item) {
-      function toggleFaq() {
-        var wasOpen = item.classList.contains("open");
-        /* Close all */
-        for (var j = 0; j < faqItems.length; j++) {
-          faqItems[j].classList.remove("open");
-          faqItems[j].setAttribute("aria-expanded", "false");
-        }
-        /* Open clicked if it was closed */
-        if (!wasOpen) {
-          item.classList.add("open");
-          item.setAttribute("aria-expanded", "true");
-        }
-      }
-
-      item.addEventListener("click", toggleFaq);
       item.addEventListener("keydown", function (e) {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          toggleFaq();
+          if (item.classList.contains("open")) closeAllFaq();
+          else openFaqItem(item);
         }
       });
-    })(faqItems[fi]);
+    })(faqItems[fk]);
   }
 
   /* ══════════════════════════════════════════════════
@@ -2255,7 +2245,7 @@ html.lenis, html.lenis body {
 
     el.innerHTML = lines
       .map(function (line, i) {
-        return '<span class="line-mask"><span class="line-inner" style="transition-delay:' + (i * 0.14) + 's">' + line + '</span></span>';
+        return '<span class="line-mask"><span class="line-inner" style="transition-delay:' + (i * 0.10) + 's">' + line + '</span></span>';
       })
       .join("");
 
@@ -2295,7 +2285,7 @@ html.lenis, html.lenis body {
             for (var i = 0; i < heroLines.length; i++) {
               heroLines[i].style.willChange = "auto";
             }
-          }, 1600);
+          }, 1000);
         }, 300);
       });
     }
@@ -2324,8 +2314,17 @@ html.lenis, html.lenis body {
 
   /* ── FAQ staggered scroll reveal ── */
   for (var qi = 0; qi < faqItems.length; qi++) {
-    faqItems[qi].style.transitionDelay = (qi * 0.1) + "s, " + (qi * 0.1) + "s, 0s, 0s";
+    faqItems[qi].style.transitionDelay = (qi * 0.06) + "s, " + (qi * 0.06) + "s, 0s, 0s";
     revealObserver.observe(faqItems[qi]);
+    /* Clear stagger delay after reveal so it doesn't affect open/close */
+    (function (item) {
+      item.addEventListener("transitionend", function clearDelay(e) {
+        if (e.propertyName === "opacity") {
+          item.style.transitionDelay = "";
+          item.removeEventListener("transitionend", clearDelay);
+        }
+      });
+    })(faqItems[qi]);
   }
 
   /* ── Footer reveals ── */
@@ -2351,6 +2350,7 @@ HTMLtoFlow may only import the first class on elements with multiple classes. Af
 | Service block 3 | `service-block block-3` | `service-block` | `block-3` |
 | Blue button | `block-btn btn-blue` | `block-btn` | `btn-blue` |
 | Red button | `block-btn btn-red` | `block-btn` | `btn-red` |
+| Gold button | `block-btn btn-gold` | `block-btn` | `btn-gold` |
 | Left arrow | `carousel-arrow arrow-left` | `carousel-arrow` | `arrow-left` |
 | Right arrow | `carousel-arrow arrow-right` | `carousel-arrow` | `arrow-right` |
 
@@ -2396,27 +2396,3 @@ Expected. Custom JS only runs on the published site. Use the staging preview to 
 
 ### "Page is blank / invisible"
 The `body { opacity: 0 }` curtain waits for the `pageReveal` animation. Check browser console (F12) for JS errors. If stuck, temporarily remove the `html:not(.w-editor) body { opacity: 0; animation: ... }` block from Head CSS.
-
-### "Text is invisible on the published site"
-This was the old specificity bug — now fixed. The `.js-ready` approach ensures reveal states (`.js-ready .line-inner.is-visible`) always beat hiding states (`.js-ready .line-inner`) because they have higher specificity. If you still see invisible text, check that no Webflow styles set `opacity: 0` on those elements.
-
-### "Horizontal scroll doesn't work"
-- `.services-wrapper` needs `height: 300vh` (set in Webflow styles)
-- `.services` needs `position: sticky; top: 0; height: 100vh; overflow: hidden`
-- No parent element should have `overflow: hidden` or `overflow: auto` (breaks sticky)
-- Only activates above 1024px width
-
-### "Carousel slides are all visible / stacked"
-In the Designer, all slides are visible for editing (no `.js-ready` class). On published site, JS adds `.active` to the first slide. This is correct behavior.
-
-### "FAQ doesn't animate on mobile"
-Mobile FAQ uses `max-height` transitions. Make sure `.faq-right` on mobile has `display: flex` (not `display: none`).
-
-### "Stats section scrolls too fast/slow"
-Adjust `height` on `.stats-wrapper`. More height = slower. Default: 600vh desktop, 500vh tablet, 400vh mobile.
-
-### "Fonts look wrong"
-Make sure all 6 GT Walsheim files are uploaded with correct weights. Font family must be exactly `GT Walsheim` (with space).
-
-### "Lenis CDN is blocked / fails"
-The JS has a try/catch fallback. If Lenis fails, native scrolling works and all other animations still run.

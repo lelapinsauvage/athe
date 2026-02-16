@@ -58,20 +58,107 @@ body {
   overflow-x: hidden;
 }
 
+/* ── New Hero — split layout ── */
+.hero-new {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-new-block {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: #DBD3CD;
+}
+
+.hero-new-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 15%;
+  background: #EFE7E1;
+  z-index: 1;
+}
+
+.hero-new-image {
+  position: absolute;
+  top: 26.76%;
+  left: 12.14%;
+  width: 25.68%;
+  z-index: 2;
+}
+
+.hero-new-image img {
+  width: 100%;
+  aspect-ratio: 493 / 602;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-new-caption {
+  position: absolute;
+  bottom: 1vw;
+  left: 1vw;
+  font-size: 0.729vw;
+  color: #282828;
+  font-weight: 400;
+}
+
+.hero-new-title {
+  position: absolute;
+  top: 26.76%;
+  left: 53.85%;
+  width: 42.08%;
+  text-align: center;
+  font-weight: 500;
+  font-size: 3.646vw;
+  line-height: 4.688vw;
+  letter-spacing: 0.073vw;
+  color: #282828;
+  text-transform: uppercase;
+}
+
+.hero-new-links {
+  position: absolute;
+  top: 75.46%;
+  right: 7.5%;
+  width: 12.97%;
+  text-align: right;
+}
+
+.hero-new-link {
+  display: block;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 0.781vw;
+  line-height: 1.51vw;
+  text-transform: uppercase;
+}
+
+.hero-new-link-blue   { color: #689DE8; }
+.hero-new-link-red    { color: #D85050; }
+.hero-new-link-yellow { color: #D4A843; }
+
+/* ── Old Hero text section ── */
 .hero {
   width: 100%;
   height: 100vh;
   display: flex;
   align-items: center;
-  padding: 0 5vw; /* 96/1920 = 5% */
+  padding: 0 5vw;
 }
 
 .hero-text {
   font-family: 'GT Walsheim', sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 3.125vw; /* 60/1920 */
-  line-height: 3.59375vw; /* 69/1920 */
+  font-size: 3.125vw;
+  line-height: 3.59375vw;
   letter-spacing: 0px;
   color: #282828;
   text-align: left;
@@ -161,6 +248,7 @@ body {
 
 .btn-blue { background: #9ABDEF; }
 .btn-red { background: #E8828A; }
+.btn-gold { background: #F7D071; }
 
 /* Paragraph */
 .block-text {
@@ -452,8 +540,8 @@ body {
   align-items: flex-start;
   padding: 2.9vw 4.11vw 1.5625vw;
   overflow: hidden;
-  transition: min-height 600ms cubic-bezier(0.16, 1, 0.3, 1),
-              padding-top 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: min-height 500ms cubic-bezier(0.4, 0, 0.2, 1),
+              padding-top 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .faq-item.open {
@@ -508,14 +596,14 @@ body {
   align-items: center;
   justify-content: space-between;
   opacity: 0;
-  transition: opacity 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
 }
 
 .faq-item.open .faq-right {
   opacity: 1;
   pointer-events: auto;
-  transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
 }
 
 .faq-divider {

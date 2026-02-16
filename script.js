@@ -196,7 +196,7 @@ requestAnimationFrame(animate);
 /* ── Team Carousel (directional slide) ── */
 (function () {
   const slideEls = document.querySelectorAll('.carousel-slide');
-  const dots = document.querySelectorAll('.dot');
+  const dots = document.querySelectorAll('.carousel-dots .dot');
   const prevBtn = document.querySelector('.arrow-left');
   const nextBtn = document.querySelector('.arrow-right');
   const total = slideEls.length;
@@ -215,6 +215,7 @@ requestAnimationFrame(animate);
 
   function goTo(index, direction) {
     if (index === current || isAnimating) return;
+    if (!slideEls[index]) return;
     isAnimating = true;
 
     if (direction === undefined) direction = index > current ? 1 : -1;
@@ -223,7 +224,7 @@ requestAnimationFrame(animate);
     const incoming = slideEls[index];
 
     // Position incoming offscreen (no transition yet)
-    incoming.style.opacity = '1';
+    incoming.style.opacity = '0';
     incoming.style.pointerEvents = 'auto';
     incoming.style.transform = direction > 0 ? 'translateX(100%)' : 'translateX(-100%)';
     incoming.style.zIndex = '2';
@@ -239,7 +240,9 @@ requestAnimationFrame(animate);
     incoming.offsetHeight;
 
     incoming.style.transform = 'translateX(0)';
+    incoming.style.opacity = '1';
     outgoing.style.transform = direction > 0 ? 'translateX(-100%)' : 'translateX(100%)';
+    outgoing.style.opacity = '0';
 
     setTimeout(() => {
       // Clean up outgoing
@@ -262,12 +265,14 @@ requestAnimationFrame(animate);
       current = index;
       dots.forEach((d, i) => d.classList.toggle('active', i === current));
       isAnimating = false;
-    }, 480);
+    }, 680);
   }
 
   if (prevBtn) prevBtn.addEventListener('click', () => goTo((current - 1 + total) % total, -1));
   if (nextBtn) nextBtn.addEventListener('click', () => goTo((current + 1) % total, 1));
-  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+  dots.forEach((dot, i) => {
+    if (i < total) dot.addEventListener('click', () => goTo(i));
+  });
 
   // Touch swipe support
   const slidesContainer = document.querySelector('.carousel-content');
@@ -286,34 +291,53 @@ requestAnimationFrame(animate);
   }
 })();
 
-/* ── FAQ accordion ── */
+/* ── FAQ accordion (hover on desktop, click on mobile) ── */
 (function () {
   const items = document.querySelectorAll('.faq-item');
-  items.forEach(item => {
-    function toggle() {
-      const wasOpen = item.classList.contains('open');
-      const anyOpen = [...items].some(i => i.classList.contains('open'));
-      items.forEach(i => {
-        i.classList.remove('open');
-        i.setAttribute('aria-expanded', 'false');
+  const faqList = document.querySelector('.faq-list');
+  const isTouchDevice = window.matchMedia('(max-width: 768px)').matches;
+
+  function openItem(item) {
+    items.forEach(i => {
+      i.classList.remove('open');
+      i.setAttribute('aria-expanded', 'false');
+    });
+    item.classList.add('open');
+    item.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeAll() {
+    items.forEach(i => {
+      i.classList.remove('open');
+      i.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  if (isTouchDevice) {
+    /* Mobile: click to toggle */
+    items.forEach(item => {
+      item.addEventListener('click', () => {
+        if (item.classList.contains('open')) closeAll();
+        else openItem(item);
       });
-      if (!wasOpen) {
-        if (anyOpen) {
-          setTimeout(() => {
-            item.classList.add('open');
-            item.setAttribute('aria-expanded', 'true');
-          }, 120);
-        } else {
-          item.classList.add('open');
-          item.setAttribute('aria-expanded', 'true');
-        }
-      }
+    });
+  } else {
+    /* Desktop: hover to open */
+    items.forEach(item => {
+      item.addEventListener('mouseenter', () => openItem(item));
+    });
+    if (faqList) {
+      faqList.addEventListener('mouseleave', closeAll);
     }
-    item.addEventListener('click', toggle);
+  }
+
+  /* Keyboard: always works */
+  items.forEach(item => {
     item.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        toggle();
+        if (item.classList.contains('open')) closeAll();
+        else openItem(item);
       }
     });
   });

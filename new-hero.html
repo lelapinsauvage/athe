@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Athena — Hero</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      background: #EFE7E1;
+      font-family: 'GT Walsheim', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── Hero Section — 100vh ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── Grey block — left half ── */
+    .hero-block {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;          /* 960 / 1920 */
+      height: 100%;
+      background: #DBD3CD;
+    }
+
+    /* ── Beige bar — top of grey block ──
+       Creates header breathing room. Sits on top of the grey block
+       so the top portion blends with the page background. */
+    .hero-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 15%;          /* ~162px of 1080 */
+      background: #EFE7E1;
+      z-index: 1;
+    }
+
+    /* ── Image ── */
+    .hero-image {
+      position: absolute;
+      top: 26.76%;          /* 289 / 1080 */
+      left: 12.14%;         /* 233 / 1920 */
+      width: 25.68%;        /* 493 / 1920 */
+      z-index: 2;
+    }
+
+    .hero-image img {
+      width: 100%;
+      aspect-ratio: 493 / 602;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-caption {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      font-size: 0.729vw;  /* 14 / 1920 */
+      color: #282828;
+      font-weight: 400;
+    }
+
+    /* ── Title ── */
+    .hero-title {
+      position: absolute;
+      top: 26.76%;          /* 289 / 1080 */
+      left: 53.85%;         /* 1034 / 1920 */
+      width: 42.08%;        /* 808 / 1920 */
+      text-align: center;
+      font-weight: 500;
+      font-size: 3.646vw;   /* 70 / 1920 */
+      line-height: 4.688vw; /* 90 / 1920 */
+      letter-spacing: 0.073vw; /* 1.4 / 1920 */
+      color: #282828;
+      text-transform: uppercase;
+    }
+
+    /* ── Links ── */
+    .hero-links {
+      position: absolute;
+      top: 75.46%;          /* 815 / 1080 */
+      right: 7.5%;          /* 144 / 1920 */
+      width: 12.97%;        /* 249 / 1920 */
+      text-align: right;
+      font-weight: 400;
+      font-size: 0.781vw;   /* 15 / 1920 */
+      line-height: 1.51vw;  /* 29 / 1920 */
+      text-transform: uppercase;
+    }
+
+    .hero-links a {
+      display: block;
+      text-decoration: none;
+    }
+
+    .link-blue   { color: #689DE8; }
+    .link-red    { color: #D85050; }
+    .link-yellow { color: #D4A843; }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <!-- Grey block (left 50%) -->
+    <div class="hero-block"></div>
+
+    <!-- Beige bar (top of grey block, matches page bg) -->
+    <div class="hero-bar"></div>
+
+    <!-- Image -->
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=986&h=1204&fit=crop" alt="360° Real Estate">
+      <span class="hero-caption">360° Real Estate</span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="hero-title">Werte brauchen Haltung. Wirkung braucht Verstand.</h1>
+
+    <!-- Links -->
+    <nav class="hero-links">
+      <a href="#" class="link-blue">Projektmanagement</a>
+      <a href="#" class="link-red">Finanzierungsmanagement</a>
+      <a href="#" class="link-yellow">Invest</a>
+    </nav>
+  </section>
+
+</body>
+</html>
