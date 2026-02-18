@@ -1,0 +1,2544 @@
+<!-- Lenis Smooth Scroll CSS -->
+<link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css">
+
+<!-- ATHENA Complete CSS -->
+<style>
+/* ═══════════════════════════════════════════════════════════
+   ATHENA — Complete Stylesheet (Webflow)
+   Base styles + Animations + Responsive
+
+   Unified easing: cubic-bezier(0.16, 1, 0.3, 1) · max 500ms
+
+   Animation guard: .js-ready class (added by JS on published site)
+   - Editor: JS doesn't run → .js-ready never added → all content visible
+   - Published: JS runs → .js-ready added → animations work
+   - Only the body curtain uses html:not(.w-editor) (must work before JS)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────
+   RESET & BASE
+   ───────────────────────────────────────────────── */
+
+/* Fix: tame Webflow's burger container at all breakpoints */
+.div-block-2 {
+  width: auto !important;
+}
+.div-block-2 .code-embed {
+  padding: 0 !important;
+}
+
+html body {
+  font-family: 'GT Walsheim', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #282828;
+  background-color: #EFE7E1 !important;
+  overflow-x: hidden;
+}
+
+/* ─────────────────────────────────────────────────
+   WEBFLOW CSS OVERRIDES
+   ───────────────────────────────────────────────── */
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: inherit;
+}
+
+img {
+  max-width: none;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.w-embed::before,
+.w-embed::after {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────
+   HERO
+   ───────────────────────────────────────────────── */
+.hero {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 5vw;
+}
+
+.hero-text {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 3.125vw;
+  line-height: 3.59375vw;
+  letter-spacing: 0px;
+  color: #282828;
+  text-align: left;
+  opacity: 1;
+}
+
+/* ─────────────────────────────────────────────────
+   IMAGE SEPARATOR
+   ───────────────────────────────────────────────── */
+.image-separator {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.image-separator img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+}
+
+/* ─────────────────────────────────────────────────
+   SERVICES HORIZONTAL SCROLL
+   ───────────────────────────────────────────────── */
+.services-wrapper {
+  height: 300vh;
+}
+
+.services {
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.services-track {
+  display: flex;
+  height: 100%;
+  will-change: transform;
+}
+
+.service-block {
+  position: relative;
+  width: 50vw;
+  height: 100vh;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.block-1 { background: #DBD3CD; }
+.block-2 { background: #BFB5AE; }
+.block-3 { background: #DBD3CD; }
+
+.block-header {
+  position: absolute;
+  top: 4.1%;
+  left: 5.1%;
+  right: 4.7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.block-number {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 400;
+  font-size: 1.04vw;
+  color: #282828;
+}
+
+.block-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.02vw;
+  padding: 0 1.56vw;
+  border-radius: 1.51vw;
+  border: none;
+  text-decoration: none;
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 400;
+  font-size: 1.04vw;
+  letter-spacing: 0.4px;
+  color: #282828;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.btn-blue { background: #9ABDEF; }
+.btn-red { background: #E8828A; }
+.btn-gold { background: #F7D071; }
+
+.block-text {
+  position: absolute;
+  left: 10%;
+  right: 34.8%;
+  top: 42.7%;
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 400;
+  font-size: 1.5625vw;
+  line-height: 1.77vw;
+  letter-spacing: 0px;
+  color: #282828;
+  text-align: left;
+}
+
+/* ─────────────────────────────────────────────────
+   TEAM / CAROUSEL
+   ───────────────────────────────────────────────── */
+.team {
+  width: 100%;
+  height: 100vh;
+  background: #EFE7E1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.team-title {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 500;
+  font-size: 3.646vw;
+  line-height: 4.6875vw;
+  letter-spacing: 1.4px;
+  color: #282828;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 12.8vw;
+}
+
+.carousel {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 12vh;
+  width: 100%;
+  position: relative;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 2.5vw;
+  color: #282828;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0;
+  line-height: 1;
+}
+
+.arrow-left {
+  left: 6.98vw;
+}
+
+.arrow-right {
+  right: 6.98vw;
+}
+
+.carousel-content {
+  width: 100%;
+  overflow: hidden;
+  padding: 0 13vw;
+  position: relative;
+}
+
+.carousel-slides {
+  position: relative;
+  height: 25.4vw;
+  overflow: hidden;
+}
+
+/* Carousel slides: hidden by default on published site */
+.js-ready .carousel-slide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.carousel-slide {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.js-ready .carousel-slide.active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.slide-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 3.125vw;
+  justify-content: center;
+}
+
+.person-img {
+  width: 25.4vw;
+  height: 25.4vw;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.person-info {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.5vw;
+}
+
+.person-name {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 500;
+  font-size: 1.5625vw;
+  line-height: 1.77vw;
+  letter-spacing: 0px;
+  color: #282828;
+}
+
+.person-title {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 400;
+  font-style: oblique;
+  font-size: 1.5625vw;
+  line-height: 1.77vw;
+  letter-spacing: 0px;
+  color: #282828;
+}
+
+.person-role {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 400;
+  font-size: 1.5625vw;
+  line-height: 1.77vw;
+  letter-spacing: 0px;
+  color: #282828;
+  margin-top: 2.6vw;
+}
+
+.person-desc {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 300;
+  font-size: 1.5625vw;
+  line-height: 1.77vw;
+  letter-spacing: 0px;
+  color: #6C6C6C;
+  margin-top: 3.6vw;
+  max-width: 34.7vw;
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 1.82vw;
+  justify-content: center;
+  padding-bottom: 4vh;
+}
+
+.dot {
+  width: 0.625vw;
+  height: 0.625vw;
+  background: #6C6C6C;
+  border-radius: 0;
+  border: none;
+  cursor: pointer;
+  opacity: 0.4;
+  padding: 0;
+  transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dot.active {
+  opacity: 1;
+}
+
+.dot:hover {
+  opacity: 0.7;
+}
+
+/* ─────────────────────────────────────────────────
+   STATS STICKY SECTION
+   ───────────────────────────────────────────────── */
+.stats-wrapper {
+  height: 600vh;
+}
+
+.stats {
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #EFE7E1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stats-panel {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.stats-panel.active {
+  pointer-events: auto;
+}
+
+.reveal-mask {
+  overflow: hidden;
+  display: block;
+}
+
+.reveal-inner {
+  display: block;
+  will-change: transform, opacity;
+}
+
+.stats-intro {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 400;
+  font-size: 1.5625vw;
+  line-height: 1.3;
+  letter-spacing: 0px;
+  color: #282828;
+  text-align: center;
+  max-width: 35.7vw;
+}
+
+.stats-number {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 900;
+  font-style: oblique;
+  font-size: 10.42vw;
+  line-height: 1;
+  letter-spacing: 0.2vw;
+  color: #282828;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0.05em 0;
+}
+
+.stats-label {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 400;
+  font-size: 3.125vw;
+  line-height: 1.15;
+  letter-spacing: 1.2px;
+  color: #282828;
+  text-align: center;
+  margin-top: 5vw;
+}
+
+/* ─────────────────────────────────────────────────
+   FAQ / ERFOLGSBAUSTEINE
+   ───────────────────────────────────────────────── */
+.faq {
+  width: 100%;
+  background: #EFE7E1;
+  padding-top: 8vh;
+  padding-bottom: 10vh;
+}
+
+.faq-title {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 500;
+  font-size: 3.646vw;
+  line-height: 4.6875vw;
+  letter-spacing: 1.4px;
+  color: #282828;
+  text-transform: uppercase;
+  text-align: center;
+  max-width: 70vw;
+  margin: 0 auto 4.11vw;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.faq-item {
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  min-height: 7.8125vw;
+  display: flex;
+  align-items: flex-start;
+  padding: 2.9vw 4.11vw 1.5625vw;
+  overflow: hidden;
+  transition: min-height 600ms cubic-bezier(0.16, 1, 0.3, 1),
+              padding-top 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-item.open {
+  min-height: 18vw;
+  padding-top: 2.5vw;
+  align-items: flex-start;
+}
+
+.faq-item:nth-child(odd) {
+  background: #DBD3CD;
+}
+
+.faq-item:nth-child(even) {
+  background: #BFB5AE;
+}
+
+.faq-left {
+  display: flex;
+  align-items: flex-start;
+  max-width: calc(50vw - 4.11vw);
+}
+
+.faq-number {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 500;
+  font-size: 1.5625vw;
+  line-height: 1.3;
+  letter-spacing: 0px;
+  color: #282828;
+  text-transform: uppercase;
+  margin-right: 1vw;
+  flex-shrink: 0;
+}
+
+.faq-question {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 500;
+  font-size: 1.5625vw;
+  line-height: 1.3;
+  letter-spacing: 0px;
+  color: #282828;
+  text-transform: uppercase;
+}
+
+/* FAQ answer: hidden on published site, visible in editor */
+.js-ready .faq-right {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.faq-right {
+  position: absolute;
+  left: 50vw;
+  right: 4.11vw;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: opacity 350ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-item.open .faq-right {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 500ms cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.faq-divider {
+  width: 3px;
+  height: 12vw;
+  background: #282828;
+  flex-shrink: 0;
+}
+
+.faq-text {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 300;
+  font-size: 1.04vw;
+  line-height: 1.2vw;
+  letter-spacing: 0px;
+  color: #6C6C6C;
+  max-width: 23.23vw;
+  text-align: left;
+}
+
+/* ─────────────────────────────────────────────────
+   FOOTER
+   ───────────────────────────────────────────────── */
+.footer {
+  width: 100%;
+  background: #EFE7E1;
+}
+
+.footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.footer-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20.05vw;
+  height: 3.33vw;
+  border: 3px solid #171717;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 400;
+  font-size: 1.5625vw;
+  line-height: 1.77vw;
+  letter-spacing: 0px;
+  color: #171717;
+  text-transform: uppercase;
+}
+
+.footer-block {
+  position: relative;
+  width: calc(100vw - 2 * 2.865vw);
+  margin: 0 auto 2.865vw;
+  background: #BFB5AE;
+  height: 21.5625vw;
+}
+
+.footer-left {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.footer-social {
+  position: absolute;
+  left: 9.79vw;
+  top: 6.25vw;
+}
+
+.footer-social-title {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 2.604vw;
+  line-height: 2.97vw;
+  letter-spacing: 0px;
+  color: #282828;
+  text-transform: uppercase;
+}
+
+.footer-linkedin {
+  display: block;
+  margin-top: 3.6vw;
+}
+
+.footer-linkedin svg {
+  width: 2.08vw;
+  height: 2.08vw;
+}
+
+.footer-links {
+  position: absolute;
+  left: 32.03vw;
+  top: 6.67vw;
+  bottom: 7.24vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.footer-link {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 400;
+  font-size: 0.78vw;
+  line-height: 0.9375vw;
+  letter-spacing: 0px;
+  color: #282828;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+
+.footer-divider {
+  position: absolute;
+  left: 47.135vw;
+  top: 4.22vw;
+  height: 13.28vw;
+  width: 3px;
+  background: #282828;
+}
+
+.footer-right {
+  position: absolute;
+  right: 9.79vw;
+  top: 6.25vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.footer-office-title {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 400;
+  font-size: 2.604vw;
+  line-height: 2.97vw;
+  letter-spacing: 0px;
+  color: #282828;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+.footer-address {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 400;
+  font-size: 1.04vw;
+  line-height: 1.5;
+  letter-spacing: 0px;
+  color: #282828;
+  text-align: right;
+  margin-top: 1.51vw;
+}
+
+.footer-copyright {
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 400;
+  font-style: oblique;
+  font-size: 0.78125vw;
+  line-height: 0.9375vw;
+  letter-spacing: 0px;
+  color: #7E7E7E;
+  text-align: right;
+  margin-top: 2.08vw;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATIONS & MOTION
+   Unified easing: cubic-bezier(0.16, 1, 0.3, 1) · max 500ms
+
+   .js-ready guard: JS adds this class on published site.
+   In the editor, JS doesn't run → class absent → content visible.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Page load curtain ──
+   This is the ONLY rule that uses html:not(.w-editor).
+   It must hide the body BEFORE JS loads to prevent FOUC. */
+html:not(.w-editor) body {
+  opacity: 0;
+  animation: pageReveal 500ms cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+@keyframes pageReveal {
+  to { opacity: 1; }
+}
+
+/* ── Lenis overrides ── */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* ── Line Reveal System ── */
+.line-mask {
+  overflow: hidden;
+  display: block;
+  padding-bottom: 0.12em;
+}
+.js-ready .line-inner {
+  display: block;
+  transform: translateY(105%);
+  opacity: 0;
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+.js-ready .line-inner.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ── Service Block Content Reveal ── */
+.js-ready .service-block .block-header {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js-ready .service-block .block-text {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
+}
+.js-ready .service-block.in-view .block-header,
+.js-ready .service-block.in-view .block-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Carousel Slide Transition (directional horizontal slide) ── */
+.js-ready .carousel-slide.sliding {
+  transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 450ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── FAQ Items Scroll Reveal ── */
+.js-ready .faq-item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              min-height 600ms cubic-bezier(0.16, 1, 0.3, 1),
+              padding-top 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js-ready .faq-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.js-ready .faq-item.open {
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              min-height 600ms cubic-bezier(0.16, 1, 0.3, 1),
+              padding-top 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* FAQ divider — no animation */
+.js-ready .faq-divider {
+  transform: none;
+}
+
+/* ── Footer Reveals ── */
+.js-ready .footer-btn {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 300ms cubic-bezier(0.16, 1, 0.3, 1),
+              color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js-ready .footer-btn.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.js-ready .footer-block {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+              transform 450ms cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+}
+.js-ready .footer-block.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Hover Effects ── */
+.footer-btn:hover {
+  background: #171717;
+  color: #EFE7E1;
+}
+
+.block-btn {
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.block-btn:hover {
+  transform: scale(1.05);
+}
+
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; opacity: 1; }
+  .line-inner { transition: none; transform: none; opacity: 1; }
+  .carousel-slide,
+  .carousel-slide.active,
+  .carousel-slide.sliding { transition: none; }
+  .faq-item { transition: none; opacity: 1; transform: none; }
+  .footer-btn, .footer-block { transition: none; opacity: 1; transform: none; }
+  .service-block .block-header,
+  .service-block .block-text { transition: none; opacity: 1; transform: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET (max 1024px)
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+
+  /* ── Nav — tame the Webflow logo scaling ── */
+  .logo {
+    width: 60px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 0 6vw;
+  }
+  .hero-text {
+    font-size: 4.8vw;
+    line-height: 5.8vw;
+  }
+
+  /* ── Image Separator ── */
+  .image-separator {
+    height: 70vh;
+  }
+
+  /* ── Services — disable horizontal scroll, stack vertical ── */
+  .services-wrapper {
+    height: auto;
+  }
+  .services {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+  .services-track {
+    flex-direction: column;
+    transform: none !important;
+  }
+  .service-block {
+    width: 100%;
+    height: 80vh;
+    min-height: 500px;
+  }
+  .block-number {
+    font-size: 1.8vw;
+  }
+  .block-btn {
+    font-size: 1.6vw;
+    height: 4.5vw;
+    padding: 0 2.5vw;
+    border-radius: 2.25vw;
+  }
+  .block-text {
+    font-size: 2.2vw;
+    line-height: 2.8vw;
+    right: 15%;
+  }
+
+  /* ── Team Carousel ── */
+  .team {
+    height: auto;
+    min-height: 100vh;
+    padding-bottom: 5vh;
+  }
+  .team-title {
+    font-size: 5.5vw;
+    line-height: 6.5vw;
+  }
+  .carousel {
+    padding-top: 6vh;
+  }
+  .carousel-content {
+    padding: 0 10vw;
+  }
+  .carousel-slides {
+    height: 36vw;
+  }
+  .person-img {
+    width: 30vw;
+    height: 30vw;
+  }
+  .person-name,
+  .person-title,
+  .person-role {
+    font-size: 2.2vw;
+    line-height: 2.8vw;
+  }
+  .person-role {
+    margin-top: 1.5vw;
+  }
+  .person-desc {
+    font-size: 2vw;
+    line-height: 2.6vw;
+    margin-top: 2vw;
+  }
+  .carousel-arrow {
+    font-size: 3.5vw;
+  }
+  .arrow-left { left: 3vw; }
+  .arrow-right { right: 3vw; }
+
+  /* ── Stats ── */
+  .stats-wrapper {
+    height: 500vh;
+  }
+  .stats-number {
+    font-size: 13vw;
+  }
+  .stats-label {
+    font-size: 4vw;
+  }
+  .stats-intro {
+    font-size: 2.5vw;
+    max-width: 55vw;
+  }
+
+  /* ── FAQ ── */
+  .faq-title {
+    font-size: 5vw;
+    line-height: 6.5vw;
+    max-width: 70vw;
+  }
+  .faq-item {
+    min-height: 10vw;
+  }
+  .faq-item.open {
+    min-height: 22vw;
+  }
+  .faq-number,
+  .faq-question {
+    font-size: 2.2vw;
+    line-height: 3.5vw;
+  }
+  .faq-text {
+    font-size: 1.6vw;
+    line-height: 2.2vw;
+    width: auto;
+    max-width: 38vw;
+  }
+
+  /* ── Footer ── */
+  .footer-top {
+    height: 40vh;
+  }
+  .footer-btn {
+    font-size: 2.5vw;
+    width: 30vw;
+    height: 5.5vw;
+  }
+
+  /* Reset absolute positioning to flex layout */
+  .footer-block {
+    position: relative;
+    height: auto;
+    display: flex;
+    align-items: stretch;
+    padding: 5vw;
+  }
+  .footer-left {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 5vw;
+  }
+  .footer-social {
+    position: relative;
+    left: auto;
+    top: auto;
+  }
+  .footer-social-title {
+    font-size: 3.5vw;
+    line-height: 1.3;
+  }
+  .footer-linkedin svg {
+    width: 3vw;
+    height: 3vw;
+  }
+  .footer-links {
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: stretch;
+  }
+  .footer-link {
+    font-size: 1.4vw;
+    line-height: 1.4;
+  }
+  .footer-divider {
+    position: relative;
+    left: auto;
+    top: auto;
+    height: auto;
+    width: 1px;
+    align-self: stretch;
+    margin: 0 3vw;
+  }
+  .footer-right {
+    position: relative;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .footer-office-title {
+    font-size: 4vw;
+    line-height: 1.2;
+  }
+  .footer-address {
+    font-size: 1.6vw;
+    margin-top: 0;
+  }
+  .footer-copyright {
+    font-size: 1.2vw;
+    margin-top: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE (max 768px)
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── Hero parallax: all content scrolls over the sticky page-wrapper ── */
+  .hero,
+  .image-separator,
+  .services-wrapper,
+  .team,
+  .stats-wrapper,
+  .faq,
+  .footer {
+    position: relative;
+    z-index: 2;
+  }
+  .hero {
+    margin-top: 100vh;
+    background: #EFE7E1;
+    padding: 0 7vw;
+  }
+  .image-separator {
+    background: #282828;
+  }
+  .hero-text {
+    font-size: 6vw;
+    line-height: 8vw;
+  }
+
+  /* ── Image Separator ── */
+  .image-separator {
+    height: 60vh;
+  }
+
+  /* ── Services — vertical stack ── */
+  .service-block {
+    width: 100%;
+    height: auto;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 14vw 7vw;
+    gap: 8vw;
+  }
+  .block-header {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+  }
+  .block-text {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    font-size: 4.2vw;
+    line-height: 5.6vw;
+  }
+  .block-number {
+    font-size: 3.5vw;
+  }
+  .block-btn {
+    font-size: 3vw;
+    height: 9vw;
+    padding: 0 4vw;
+    border-radius: 4.5vw;
+    white-space: normal;
+    text-align: center;
+  }
+
+  /* ── Team Carousel ── */
+  .team {
+    height: auto;
+    min-height: auto;
+    padding-bottom: 5vh;
+  }
+  .team-title {
+    font-size: 8vw;
+    line-height: 10vw;
+    margin-top: 8vh;
+  }
+  .carousel {
+    padding-top: 4vh;
+  }
+  .carousel-content {
+    padding: 0 4vw;
+  }
+  .carousel-slides {
+    height: auto;
+    min-height: 140vw;
+  }
+  .slide-inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 6vw;
+  }
+  .person-img {
+    width: 60vw;
+    height: 60vw;
+  }
+  .person-info {
+    text-align: center;
+    align-items: center;
+    padding-top: 0;
+  }
+  .person-name {
+    font-size: 5.5vw;
+    line-height: 7vw;
+  }
+  .person-title {
+    font-size: 4vw;
+    line-height: 5.5vw;
+  }
+  .person-role {
+    font-size: 4vw;
+    line-height: 5.5vw;
+    margin-top: 4vw;
+  }
+  .person-desc {
+    font-size: 3.8vw;
+    line-height: 5vw;
+    max-width: 85vw;
+    margin-top: 4vw;
+  }
+  .carousel-arrow {
+    font-size: 7vw;
+    top: 30vw;
+    transform: none;
+    background: rgba(239, 231, 225, 0.7);
+    border-radius: 50%;
+    width: 10vw;
+    height: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .arrow-left { left: 2vw; }
+  .arrow-right { right: 2vw; }
+  .dot {
+    width: 3vw;
+    height: 3vw;
+  }
+  .carousel-dots {
+    gap: 3vw;
+    padding-bottom: 3vh;
+  }
+
+  /* ── Stats ── */
+  .stats-wrapper {
+    height: 400vh;
+  }
+  .stats-number {
+    font-size: 16vw;
+    letter-spacing: 0;
+  }
+  .stats-label {
+    font-size: 5.5vw;
+    margin-top: 4vw;
+    line-height: 1.3;
+  }
+  .stats-intro {
+    font-size: 5vw;
+    line-height: 1.4;
+    max-width: 80vw;
+  }
+
+  /* ── FAQ — full-width stacked layout ── */
+  .faq {
+    padding-top: 8vh;
+    padding-bottom: 8vh;
+  }
+  .faq-title {
+    font-size: 7.5vw;
+    line-height: 9.5vw;
+    max-width: 90vw;
+    margin-bottom: 5vw;
+  }
+  .faq-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5vw 6vw;
+    min-height: auto;
+  }
+  .faq-item.open {
+    min-height: auto;
+    align-items: flex-start;
+    padding-top: 5vw;
+  }
+  .faq-left {
+    max-width: 100%;
+  }
+  .faq-number {
+    font-size: 4vw;
+    line-height: 1.4;
+  }
+  .faq-question {
+    font-size: 4vw;
+    line-height: 1.4;
+  }
+
+  /* Mobile FAQ answer: animated with max-height */
+  .js-ready .faq-right {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 500ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 400ms cubic-bezier(0.16, 1, 0.3, 1),
+                margin-top 500ms cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+  .faq-right {
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    width: 100%;
+    margin-top: 0;
+    flex-direction: column;
+    gap: 4vw;
+    display: flex;
+  }
+  .faq-item.open .faq-right {
+    max-height: 80vw;
+    opacity: 1;
+    margin-top: 4vw;
+    pointer-events: auto;
+    transition: max-height 500ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 400ms cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+                margin-top 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .faq-divider {
+    width: 100%;
+    height: 2px;
+    transform: none;
+  }
+  .faq-item.open .faq-divider {
+    transform: none;
+  }
+  .faq-text {
+    font-size: 4vw;
+    line-height: 5.5vw;
+    width: 100%;
+  }
+
+  /* ── Footer: close Safari sub-pixel gap (0.64px) ── */
+  .footer {
+    padding-bottom: 1px;
+  }
+  .footer-top {
+    height: 30vh;
+  }
+  .footer-btn {
+    font-size: 4.5vw;
+    width: 55vw;
+    height: 12vw;
+    border-radius: 6vw;
+  }
+
+  /* Stack footer block vertically */
+  .footer-block {
+    position: relative;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 8vw 7vw;
+    gap: 8vw;
+  }
+  .footer-left {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6vw;
+  }
+  .footer-social {
+    position: relative;
+    left: auto;
+    top: auto;
+  }
+  .footer-social-title {
+    font-size: 7vw;
+    line-height: 1.2;
+  }
+  .footer-linkedin {
+    margin-top: 2vw;
+  }
+  .footer-linkedin svg {
+    width: 7vw;
+    height: 7vw;
+  }
+  .footer-links {
+    position: relative;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4vw;
+  }
+  .footer-link {
+    font-size: 3.5vw;
+    line-height: 1.4;
+    padding: 1.5vw 0;
+  }
+
+  /* Horizontal divider on mobile */
+  .footer-divider {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: 1px;
+    margin: 0;
+    transform: none;
+  }
+  .footer-block.is-visible .footer-divider {
+    transform: none;
+  }
+  .footer-right {
+    position: relative;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    align-items: flex-start;
+    gap: 4vw;
+  }
+  .footer-office-title {
+    font-size: 8vw;
+    line-height: 1.2;
+    text-align: left;
+  }
+  .footer-address {
+    font-size: 3.8vw;
+    text-align: left;
+    margin-top: 0;
+  }
+  .footer-copyright {
+    font-size: 3vw;
+    text-align: left;
+    margin-top: 0;
+  }
+
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — SMALL MOBILE (max 480px)
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .hero-text {
+    font-size: 7.5vw;
+    line-height: 9.5vw;
+  }
+
+  .block-btn {
+    font-size: 3.2vw;
+    height: 10vw;
+    padding: 0 4.5vw;
+  }
+  .block-text {
+    font-size: 4.5vw;
+    line-height: 6vw;
+  }
+
+  .person-img {
+    width: 70vw;
+    height: 70vw;
+  }
+  .carousel-slides {
+    min-height: 160vw;
+  }
+
+  .stats-number {
+    font-size: 18vw;
+  }
+  .stats-label {
+    font-size: 6vw;
+  }
+
+  .line-inner {
+    transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<style>
+/* ═══════════════════════════════════════════════
+   NEW HERO — Full-viewport split layout
+   Design base: 1920 × 1080
+   ═══════════════════════════════════════════════ */
+
+.hero-new {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #EFE7E1;
+}
+
+/* Grey block — left half */
+.hero-new-block {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;            /* 960 / 1920 */
+  height: 100%;
+  background: #DBD3CD;
+}
+
+/* Beige bar — full width, top strip */
+.hero-new-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;            /* 1920 / 1920 — full width */
+  height: 11.76%;         /* 127 / 1080 */
+  background: #EEE7E1;
+  z-index: 1;
+}
+
+/* Image */
+.hero-new-image {
+  position: absolute;
+  top: 26.76%;            /* 289 / 1080 */
+  left: 12.14%;           /* 233 / 1920 */
+  width: 25.68%;          /* 493 / 1920 */
+  z-index: 2;
+}
+
+.hero-new-image img {
+  width: 100%;
+  aspect-ratio: 493 / 602;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-new-caption {
+  position: absolute;
+  bottom: 1vw;
+  left: 1vw;
+  font-family: 'GT Walsheim', sans-serif;
+  font-size: 0.729vw;    /* 14 / 1920 */
+  font-weight: 400;
+  color: #282828;
+}
+
+/* Title */
+.hero-new-title {
+  position: absolute;
+  top: 26.76%;            /* 289 / 1080 */
+  left: 53.85%;           /* 1034 / 1920 */
+  width: 42.08%;          /* 808 / 1920 */
+  text-align: center;
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 500;
+  font-size: 3.646vw;     /* 70 / 1920 */
+  line-height: 4.688vw;   /* 90 / 1920 */
+  letter-spacing: 0.073vw; /* 1.4 / 1920 */
+  color: #282828;
+  text-transform: uppercase;
+}
+
+/* Links */
+.hero-new-links {
+  position: absolute;
+  top: 75.46%;            /* 815 / 1080 */
+  right: 7.5%;            /* 144 / 1920 */
+  width: 12.97%;          /* 249 / 1920 */
+  text-align: right;
+}
+
+.hero-new-link {
+  display: block;
+  text-decoration: none;
+  font-family: 'GT Walsheim', sans-serif;
+  font-weight: 400;
+  font-size: 0.781vw;     /* 15 / 1920 */
+  line-height: 1.51vw;    /* 29 / 1920 */
+  text-transform: uppercase;
+}
+
+.hero-new-link-blue   { color: #689DE8; }
+.hero-new-link-red    { color: #ED5F64; }
+.hero-new-link-yellow { color: #FFBF24; }
+
+/* ── Stack layout (≤ 1024px) ── */
+@media (max-width: 1024px) {
+  .hero-new {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  }
+  .hero-new-block {
+    display: none;
+  }
+  .hero-new-bar {
+    display: none;
+  }
+  .hero-new-title {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    order: 1;
+    text-align: left;
+    padding: 10vw 1.6rem 2vw 1.6rem;
+    font-size: 5.5vw;
+    line-height: 7vw;
+    letter-spacing: 0.08vw;
+  }
+  .hero-new-links {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    order: 2;
+    display: flex;
+    flex-direction: row;
+    gap: 3vw;
+    text-align: left;
+    padding: 0 1.6rem 15vw 1.6rem;
+  }
+  .hero-new-link {
+    display: inline;
+    font-size: 1.2vw;
+    line-height: 1.4;
+  }
+  .hero-new-image {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    order: 3;
+    z-index: auto;
+  }
+  .hero-new-image img {
+    aspect-ratio: auto;
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+  }
+  .hero-new-caption {
+    font-size: 1.5vw;
+    bottom: 1.5vw;
+    left: 2vw;
+    color: #fff;
+  }
+}
+
+/* ── Mobile (≤ 768px) ── */
+@media (max-width: 768px) {
+  /* Parallax: entire page-wrapper (nav + hero) stays fixed */
+  .page-wrapper {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 0 !important;
+  }
+  .hero-new-title {
+    padding: 12vw 1.6rem 2vw 1.6rem;
+    font-size: 7vw;
+    line-height: 9vw;
+    letter-spacing: 0.12vw;
+  }
+  .hero-new-links {
+    padding: 0 1.6rem 15vw 1.6rem;
+    gap: 4vw;
+  }
+  .hero-new-link {
+    font-size: 2.2vw;
+    line-height: 1.4;
+  }
+  .hero-new-image img {
+    height: 50vh;
+  }
+  .hero-new-caption {
+    font-size: 2.5vw;
+    bottom: 3vw;
+    left: 3vw;
+  }
+}
+
+/* ── Small Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+  .hero-new-title {
+    padding: 16vw 1.6rem 2vw 1.6rem;
+    font-size: 8.5vw;
+    line-height: 10.5vw;
+  }
+  .hero-new-links {
+    padding: 0 1.6rem 15vw 1.6rem;
+  }
+  .hero-new-link {
+    font-size: 2.8vw;
+    line-height: 1.4;
+  }
+  .hero-new-image img {
+    height: 55vh;
+  }
+  .hero-new-caption {
+    font-size: 3vw;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   HERO-NEW / PAGE-WRAPPER INTEGRATION
+   Fixes: paragraph section behind hero,
+   page-main overlay, page-1/2/3 stacking
+   ═══════════════════════════════════════════════ */
+
+/* page-wrapper must have height so content below is pushed down */
+.page-wrapper {
+  height: 100vh !important;
+}
+
+/* hero-new needs explicit z-index below the overlay pages */
+.hero-new {
+  z-index: 1 !important;
+}
+
+/* page-main must overlay hero-new, not sit beside it in flex row */
+.page-main {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 4 !important;
+}
+
+/* Overlay pages above hero-new */
+.page-1, .page-2, .page-3 {
+  z-index: 5 !important;
+}
+
+/* ── Tablet/Mobile: hero-new stacks, wrapper auto-heights ── */
+@media (max-width: 1024px) {
+  .page-wrapper {
+    height: auto !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .page-wrapper {
+    min-height: 100vh !important;
+    height: auto !important;
+    flex-flow: column;
+  }
+  .page-main {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 4;
+  }
+}
+
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+
+<script>
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const menuBtn = document.getElementById("burger");
+  const heroWrapper = document.querySelector(".hero-par-wrapper");
+  const menuPanel = document.querySelector(".menu");
+  const heroHeadings = document.querySelectorAll(".h");
+  const smallLinks = document.querySelectorAll(".small-links");
+  const menuLinks = document.querySelectorAll(".menu-link-container");
+  const followUs = document.querySelector(".follow-us");
+  const backButtons = document.querySelectorAll(".back");
+
+  const sharedSection = document.querySelector('.menu-2-open');
+  const sections = {
+    'menu-1': document.querySelector('.menu-1-open'),
+    'menu-2': sharedSection,
+    'menu-3': sharedSection,
+    'menu-4': sharedSection,
+  };
+
+  const pageMain = document.querySelector('.page-main');
+  const pages = {
+    'page-1': document.querySelector('.page-1'),
+    'page-2': document.querySelector('.page-2'),
+    'page-3': document.querySelector('.page-3'),
+  };
+
+  const column = document.querySelector(".column-1");
+  const heroImg = document.querySelector(".hero-img");
+  const divWrapper = document.querySelector(".div-wrapper");
+
+  gsap.set(heroWrapper, { opacity: 1 });
+  gsap.set(menuPanel, { display: "none", x: "100%" });
+  gsap.set(heroHeadings, { y: "1.5em", opacity: 0 });
+  gsap.set(smallLinks, { y: "1.5em", opacity: 0 });
+  gsap.set(followUs, { opacity: 0 });
+  Object.values(sections).forEach(section => gsap.set(section, { display: "none", x: "0%", opacity: 1 }));
+  Object.values(pages).forEach(page => gsap.set(page, { display: 'none' }));
+  gsap.set(divWrapper, { opacity: 0 });
+
+  let sectionTl = null;
+  let currentSection = null;
+  let currentPage = null;
+
+  function fadeHeroWrapperIn() {
+    gsap.to(heroWrapper, { opacity: 1, duration: 0.6, delay: 1 });
+  }
+
+  const burgerAnim = gsap.timeline({ paused: true });
+  burgerAnim.to(".line1", { top: "24px", rotate: 45, duration: 0.15 })
+            .to(".line2", { opacity: 0, duration: 0.1 }, "<")
+            .to(".line3", { top: "24px", rotate: -45, duration: 0.15 }, "<");
+
+  const tl = gsap.timeline({ paused: true, reversed: true, defaults: { ease: "power4.out" } });
+  tl.set(menuPanel, { display: "flex" }, 0);
+  tl.to(menuPanel, { x: "0%", duration: 0.7 }, 0);
+  tl.to(heroHeadings, { y: "0em", opacity: 1, duration: 0.8, stagger: 0.1 }, 0.4);
+  tl.to(smallLinks, { y: "0em", opacity: 1, duration: 0.8, stagger: 0.05 }, 0.4);
+  tl.to(followUs, { opacity: 1, duration: 0.8 }, 0.4);
+  tl.eventCallback("onReverseComplete", () => {
+    gsap.set(menuPanel, { display: "none" });
+    resetSections();
+    fadeHeroWrapperIn();
+  });
+
+  function resetSections() {
+    Object.values(sections).forEach(section => {
+      gsap.set(section, { display: "none", x: "0%", opacity: 1 });
+    });
+    gsap.set(menuLinks, { opacity: 1, pointerEvents: "auto" });
+    gsap.set(heroHeadings, { y: "1.5em", opacity: 0 });
+    gsap.set(smallLinks, { y: "1.5em", opacity: 0 });
+    gsap.set(followUs, { opacity: 0 });
+    sectionTl = null;
+    currentSection = null;
+  }
+
+  // Section links
+  Object.keys(sections).forEach(id => {
+    const link = document.getElementById(id);
+    const section = sections[id];
+    if (!link || !section) return;
+
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (sectionTl || currentPage) return;
+
+      currentSection = section;
+      sectionTl = gsap.timeline({ defaults: { ease: "power4.out" } });
+      sectionTl.to(menuLinks, { opacity: 0, duration: 0.5, pointerEvents: "none" });
+      sectionTl.set(section, { display: "flex" });
+      sectionTl.fromTo(section, { opacity: 0 }, { opacity: 1, duration: 0.6 }, "<");
+      burgerAnim.play();
+    });
+  });
+
+  // External page links with animation
+  ["small-link-1", "small-link-2", "small-link-3"].forEach((id, index) => {
+    const link = document.getElementById(id);
+    const targetPage = `page-${index + 1}`;
+    if (!link || !pages[targetPage]) return;
+
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const page = pages[targetPage];
+      currentPage = page;
+
+      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+      tl.to(column, { width: "100%", duration: 0.5 });
+      tl.to(heroImg, { opacity: 0, duration: 0.5 }, "<");
+      tl.add(() => {
+        Object.values(pages).forEach(p => gsap.set(p, { display: "none" }));
+        gsap.set(page, { display: "flex" });
+      });
+      tl.fromTo(divWrapper, { opacity: 0 }, { opacity: 1, duration: 0.4 }, "<");
+      burgerAnim.play();
+    });
+  });
+
+  // Internal page switchers — instant swap, no animation
+  const internalLinks = {
+    "1-small-link-p2": ["page-1", "page-2"],
+    "1-small-link-p3": ["page-1", "page-3"],
+    "2-small-link-p1": ["page-2", "page-1"],
+    "2-small-link-p3": ["page-2", "page-3"],
+    "3-small-link-p1": ["page-3", "page-1"],
+    "3-small-link-p2": ["page-3", "page-2"],
+  };
+
+  Object.entries(internalLinks).forEach(([btnId, [fromId, toId]]) => {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+
+    btn.addEventListener("click", () => {
+      const fromPage = pages[fromId];
+      const toPage = pages[toId];
+      if (!fromPage || !toPage || fromPage === toPage) return;
+
+      gsap.set(fromPage, { display: "none" });
+      gsap.set(toPage, { display: "flex" });
+      gsap.set(divWrapper, { opacity: 1 });
+      currentPage = toPage;
+    });
+  });
+
+  // Back arrow handler
+  backButtons.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (!sectionTl || !currentSection) return;
+      sectionTl.reverse().eventCallback('onReverseComplete', () => {
+        sectionTl = null;
+        currentSection = null;
+        gsap.to(menuLinks, { opacity: 1, duration: 0.5, pointerEvents: "auto" });
+      });
+    });
+  });
+
+  // Burger menu toggle
+  menuBtn.addEventListener("click", () => {
+    if (currentPage) {
+      gsap.to(column, { width: "55%", duration: 0.5 });
+      gsap.to(heroImg, { opacity: 1, duration: 0.5 }, "<");
+      gsap.to(divWrapper, {
+        opacity: 0,
+        duration: 0.4,
+        onComplete: () => {
+          Object.values(pages).forEach(p => gsap.set(p, { display: "none" }));
+          currentPage = null;
+          tl.reverse();
+          burgerAnim.reverse();
+          fadeHeroWrapperIn();
+        }
+      });
+      return;
+    }
+
+    if (sectionTl && currentSection) {
+      sectionTl.kill();
+      gsap.set(menuPanel, { display: "none" });
+      gsap.to(currentSection, {
+        x: "100%",
+        duration: 1.0,
+        ease: "power4.inOut",
+        onComplete: () => {
+          gsap.set(currentSection, { display: "none", x: "0%" });
+          currentSection = null;
+          sectionTl = null;
+          burgerAnim.reverse();
+          fadeHeroWrapperIn();
+          resetSections();
+          tl.pause(0).reverse();
+        }
+      });
+      return;
+    }
+
+    const isOpening = tl.reversed();
+    if (isOpening) {
+      gsap.set(heroHeadings, { y: "1.5em", opacity: 0 });
+      gsap.set(smallLinks, { y: "1.5em", opacity: 0 });
+      gsap.set(followUs, { opacity: 0 });
+      tl.play(0);
+      burgerAnim.play();
+    } else {
+      fadeHeroWrapperIn();
+      tl.reverse();
+      burgerAnim.reverse();
+    }
+  });
+});
+</script>
+
+
+<!-- Lenis Smooth Scroll Library -->
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+<!-- ATHENA Motion Engine -->
+<script>
+(function () {
+  "use strict";
+
+  /* ══════════════════════════════════════════════════
+     WEBFLOW EDITOR GUARD
+     Skip all custom JS when editing in Webflow Designer
+     ══════════════════════════════════════════════════ */
+  var isEditor = false;
+  try {
+    if (window.Webflow && Webflow.env && Webflow.env("editor") !== undefined) {
+      isEditor = true;
+    }
+  } catch (e) {}
+  if (document.querySelector("html.w-editor")) isEditor = true;
+  if (isEditor) return;
+
+  /* ── Mark page as JS-ready (activates animation CSS) ── */
+  document.documentElement.classList.add("js-ready");
+
+  /* ══════════════════════════════════════════════════
+     LENIS SMOOTH SCROLL
+     ══════════════════════════════════════════════════ */
+  var isMobile = window.matchMedia("(max-width: 768px)").matches;
+  var lenis;
+
+  try {
+    lenis = new Lenis({
+      duration: isMobile ? 1.0 : 1.4,
+      easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+      smoothWheel: !isMobile,
+      syncTouch: false,
+      touchMultiplier: 1.5,
+    });
+    window.lenis = lenis;
+  } catch (e) {
+    lenis = { raf: function () {} };
+  }
+
+
+  /* ══════════════════════════════════════════════════
+     UTILITIES
+     ══════════════════════════════════════════════════ */
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  function easeInOutQuad(t) {
+    return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  }
+
+  var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ══════════════════════════════════════════════════
+     DOM REFS — All with null guards
+     ══════════════════════════════════════════════════ */
+  var wrapper = document.querySelector(".services-wrapper");
+  var track = document.querySelector(".services-track");
+  var serviceBlocks = document.querySelectorAll(".service-block");
+  var totalBlocks = serviceBlocks.length;
+
+  var imgSection = document.querySelector(".image-separator");
+  var imgEl = imgSection ? imgSection.querySelector("img") : null;
+
+  var statsWrapper = document.querySelector(".stats-wrapper");
+  var statsPanels = document.querySelectorAll(".stats-panel");
+  var totalPanels = statsPanels.length;
+  var numTransitions = totalPanels - 1;
+  var panelInners = [];
+  for (var p = 0; p < statsPanels.length; p++) {
+    var inners = statsPanels[p].querySelectorAll(".reveal-inner");
+    panelInners.push(Array.prototype.slice.call(inners));
+  }
+
+  /* ══════════════════════════════════════════════════
+     LERPED STATE
+     ══════════════════════════════════════════════════ */
+  var LERP_HSCROLL = 0.10;
+  var LERP_PARALLAX = 0.06;
+  var LERP_STATS = 0.08;
+
+  var currentX = 0, targetX = 0;
+  var currentScale = 1.15, targetScale = 1.15;
+  var currentStatsProgress = 0, targetStatsProgress = 0;
+
+  /* ══════════════════════════════════════════════════
+     TARGET UPDATERS (read from DOM)
+     ══════════════════════════════════════════════════ */
+  function updateTargets() {
+    /* Horizontal scroll */
+    if (wrapper && window.innerWidth > 1024) {
+      var rect = wrapper.getBoundingClientRect();
+      var scrollDist = wrapper.offsetHeight - window.innerHeight;
+      if (scrollDist > 0) {
+        var progress = Math.min(Math.max(-rect.top / scrollDist, 0), 1);
+        var maxScroll = Math.max(0, (totalBlocks * 50) - 100);
+        targetX = progress * maxScroll;
+      }
+    }
+
+    /* Image parallax */
+    if (imgEl && imgSection) {
+      var rect2 = imgSection.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var rawProgress = Math.min(Math.max((vh - rect2.top) / (vh + rect2.height), 0), 1);
+      var easedProgress = rawProgress * rawProgress * (3 - 2 * rawProgress);
+      targetScale = 1.15 - easedProgress * 0.15;
+    }
+
+    /* Stats progress */
+    if (statsWrapper) {
+      var statsRect = statsWrapper.getBoundingClientRect();
+      var statsScrollDist = statsWrapper.offsetHeight - window.innerHeight;
+      if (statsScrollDist > 0) {
+        targetStatsProgress = Math.min(Math.max(-statsRect.top / statsScrollDist, 0), 1);
+      }
+    }
+  }
+
+  /* ══════════════════════════════════════════════════
+     STATS RENDERER
+     ══════════════════════════════════════════════════ */
+  function setPanelState(index, yPercent, opacity) {
+    var els = panelInners[index];
+    for (var i = 0; i < els.length; i++) {
+      var staggerOffset = i * 15;
+      els[i].style.opacity = String(opacity);
+      els[i].style.transform = "translate3d(0, " + (yPercent + (1 - opacity) * staggerOffset) + "%, 0)";
+    }
+  }
+
+  function renderStats(progress) {
+    if (totalPanels === 0) return;
+
+    var holdSize = 0.16;
+    var transSize = 0.12;
+    var timeline = [];
+    var i;
+
+    for (i = 0; i < totalPanels; i++) {
+      if (i === 0) timeline.push({ type: "hold", panel: i, start: 0, end: holdSize });
+      if (i < numTransitions) {
+        var prevEnd = timeline[timeline.length - 1].end;
+        timeline.push({ type: "transition", from: i, to: i + 1, start: prevEnd, end: prevEnd + transSize });
+        timeline.push({ type: "hold", panel: i + 1, start: prevEnd + transSize, end: prevEnd + transSize + holdSize });
+      }
+    }
+    timeline[timeline.length - 1].end = 1;
+
+    var segment = timeline[timeline.length - 1];
+    for (i = 0; i < timeline.length; i++) {
+      if (progress >= timeline[i].start && progress < timeline[i].end) {
+        segment = timeline[i];
+        break;
+      }
+    }
+
+    for (i = 0; i < totalPanels; i++) setPanelState(i, 110, 0);
+
+    if (segment.type === "hold") {
+      setPanelState(segment.panel, 0, 1);
+    } else {
+      var t = (progress - segment.start) / (segment.end - segment.start);
+      var exitT = easeInOutQuad(Math.min(t / 0.6, 1));
+      var enterT = easeInOutQuad(Math.max((t - 0.4) / 0.6, 0));
+      setPanelState(segment.from, -exitT * 110, 1 - exitT);
+      setPanelState(segment.to, (1 - enterT) * 110, enterT);
+    }
+  }
+
+  /* ══════════════════════════════════════════════════
+     SERVICE BLOCK IN-VIEW DETECTION
+     ══════════════════════════════════════════════════ */
+  var revealedBlocks = {};
+  var revealedCount = 0;
+
+  function checkServiceBlocks() {
+    for (var i = 0; i < serviceBlocks.length; i++) {
+      if (revealedBlocks[i]) continue;
+      var rect = serviceBlocks[i].getBoundingClientRect();
+      var shouldReveal = false;
+
+      if (window.innerWidth > 1024) {
+        /* Desktop: horizontal scroll */
+        if (rect.left < window.innerWidth * 0.75) shouldReveal = true;
+      } else {
+        /* Tablet/mobile: vertical stack */
+        var cy = rect.top + rect.height / 2;
+        if (cy > 0 && cy < window.innerHeight) shouldReveal = true;
+      }
+
+      if (shouldReveal) {
+        serviceBlocks[i].classList.add("in-view");
+        revealedBlocks[i] = true;
+        revealedCount++;
+      }
+    }
+  }
+
+  /* ══════════════════════════════════════════════════
+     MAIN ANIMATION LOOP — single rAF
+     ══════════════════════════════════════════════════ */
+  function animate(time) {
+    lenis.raf(time);
+
+    if (!prefersReducedMotion) {
+      updateTargets();
+
+      /* Lerp horizontal scroll */
+      if (track && window.innerWidth > 1024) {
+        currentX = Math.abs(targetX - currentX) < 0.001 ? targetX : lerp(currentX, targetX, LERP_HSCROLL);
+        track.style.transform = "translate3d(-" + currentX + "vw, 0, 0)";
+      }
+
+      /* Lerp image parallax */
+      if (imgEl) {
+        currentScale = Math.abs(targetScale - currentScale) < 0.0001 ? targetScale : lerp(currentScale, targetScale, LERP_PARALLAX);
+        imgEl.style.transform = "scale(" + currentScale + ")";
+      }
+
+      /* Lerp stats */
+      currentStatsProgress = Math.abs(targetStatsProgress - currentStatsProgress) < 0.0001
+        ? targetStatsProgress
+        : lerp(currentStatsProgress, targetStatsProgress, LERP_STATS);
+      renderStats(currentStatsProgress);
+
+      /* Service block reveals */
+      if (revealedCount < totalBlocks) {
+        checkServiceBlocks();
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+
+  /* ══════════════════════════════════════════════════
+     TEAM CAROUSEL (directional horizontal slide)
+     ══════════════════════════════════════════════════ */
+  var slideEls = document.querySelectorAll(".carousel-slide");
+  var dots = document.querySelectorAll(".carousel-dots .dot");
+  var prevBtn = document.querySelector(".arrow-left");
+  var nextBtn = document.querySelector(".arrow-right");
+  var totalSlides = slideEls.length;
+
+  if (totalSlides > 0) {
+    var currentSlide = 0;
+    var isAnimating = false;
+
+    slideEls[0].classList.add("active");
+    for (var d = 0; d < dots.length; d++) {
+      dots[d].classList.toggle("active", d === 0);
+    }
+
+    /* Hide non-active slides from screen readers */
+    for (var s = 1; s < slideEls.length; s++) {
+      slideEls[s].setAttribute("aria-hidden", "true");
+    }
+
+    function goTo(index, direction) {
+      if (index === currentSlide || isAnimating) return;
+      isAnimating = true;
+
+      if (direction === undefined) direction = index > currentSlide ? 1 : -1;
+
+      var outgoing = slideEls[currentSlide];
+      var incoming = slideEls[index];
+
+      /* Position incoming offscreen (no transition yet) */
+      incoming.style.opacity = "0";
+      incoming.style.pointerEvents = "auto";
+      incoming.style.transform = direction > 0 ? "translateX(100%)" : "translateX(-100%)";
+      incoming.style.zIndex = "2";
+
+      /* Force reflow */
+      incoming.offsetHeight;
+
+      /* Add transition class */
+      incoming.classList.add("sliding");
+      outgoing.classList.add("sliding");
+
+      /* Force reflow so browser registers the transition before animating */
+      incoming.offsetHeight;
+
+      incoming.style.transform = "translateX(0)";
+      incoming.style.opacity = "1";
+      outgoing.style.transform = direction > 0 ? "translateX(-100%)" : "translateX(100%)";
+      outgoing.style.opacity = "0";
+
+      setTimeout(function () {
+        /* Clean up outgoing */
+        outgoing.classList.remove("active", "sliding");
+        outgoing.style.transform = "";
+        outgoing.style.opacity = "";
+        outgoing.style.pointerEvents = "";
+        outgoing.style.zIndex = "";
+        outgoing.setAttribute("aria-hidden", "true");
+
+        /* Clean up incoming */
+        incoming.classList.remove("sliding");
+        incoming.classList.add("active");
+        incoming.style.transform = "";
+        incoming.style.opacity = "";
+        incoming.style.pointerEvents = "";
+        incoming.style.zIndex = "";
+        incoming.removeAttribute("aria-hidden");
+
+        currentSlide = index;
+        for (var d = 0; d < dots.length; d++) {
+          dots[d].classList.toggle("active", d === currentSlide);
+        }
+        isAnimating = false;
+      }, 480);
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", function () {
+        goTo((currentSlide - 1 + totalSlides) % totalSlides, -1);
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener("click", function () {
+        goTo((currentSlide + 1) % totalSlides, 1);
+      });
+    }
+    for (var di = 0; di < dots.length && di < totalSlides; di++) {
+      (function (idx) {
+        dots[idx].addEventListener("click", function () {
+          goTo(idx);
+        });
+      })(di);
+    }
+
+    /* Touch swipe support */
+    var slidesContainer = document.querySelector(".carousel-content");
+    if (slidesContainer) {
+      var touchStartX = 0;
+      slidesContainer.addEventListener("touchstart", function (e) {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      slidesContainer.addEventListener("touchend", function (e) {
+        var diff = touchStartX - e.changedTouches[0].screenX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) goTo((currentSlide + 1) % totalSlides, 1);
+          else goTo((currentSlide - 1 + totalSlides) % totalSlides, -1);
+        }
+      });
+    }
+  }
+
+ /* ══════════════════════════════════════════════════
+     FAQ ACCORDION
+     ══════════════════════════════════════════════════ */
+  var faqItems = document.querySelectorAll(".faq-item");
+  var faqList = document.querySelector(".faq-list");
+  var isTouchDevice = window.matchMedia("(max-width: 768px)").matches;
+
+  function openFaqItem(item) {
+    for (var j = 0; j < faqItems.length; j++) {
+      faqItems[j].classList.remove("open");
+      faqItems[j].setAttribute("aria-expanded", "false");
+    }
+    item.classList.add("open");
+    item.setAttribute("aria-expanded", "true");
+  }
+
+  function closeAllFaq() {
+    for (var j = 0; j < faqItems.length; j++) {
+      faqItems[j].classList.remove("open");
+      faqItems[j].setAttribute("aria-expanded", "false");
+    }
+  }
+
+  if (isTouchDevice) {
+    /* Mobile: click to toggle */
+    for (var fi = 0; fi < faqItems.length; fi++) {
+      (function (item) {
+        item.addEventListener("click", function () {
+          if (item.classList.contains("open")) closeAllFaq();
+          else openFaqItem(item);
+        });
+      })(faqItems[fi]);
+    }
+  } else {
+    /* Desktop: hover to open */
+    for (var fi = 0; fi < faqItems.length; fi++) {
+      (function (item) {
+        item.addEventListener("mouseenter", function () {
+          openFaqItem(item);
+        });
+      })(faqItems[fi]);
+    }
+    if (faqList) {
+      faqList.addEventListener("mouseleave", closeAllFaq);
+    }
+  }
+
+  /* Keyboard: always works */
+  for (var fk = 0; fk < faqItems.length; fk++) {
+    (function (item) {
+      item.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          if (item.classList.contains("open")) closeAllFaq();
+          else openFaqItem(item);
+        }
+      });
+    })(faqItems[fk]);
+  }
+
+  /* ══════════════════════════════════════════════════
+     PAGE REVEAL ANIMATIONS
+     ══════════════════════════════════════════════════ */
+  if (prefersReducedMotion) {
+    /* Show everything immediately */
+    for (var ri = 0; ri < serviceBlocks.length; ri++) serviceBlocks[ri].classList.add("in-view");
+    for (var rj = 0; rj < faqItems.length; rj++) faqItems[rj].classList.add("is-visible");
+    var fb = document.querySelector(".footer-btn");
+    var fbl = document.querySelector(".footer-block");
+    if (fb) fb.classList.add("is-visible");
+    if (fbl) fbl.classList.add("is-visible");
+    return;
+  }
+
+  /* ── Line splitter ── */
+  function splitLines(el) {
+    var text = el.textContent.trim();
+    var words = text.split(/\s+/);
+    el.innerHTML = words.map(function (w) { return "<span>" + w + " </span>"; }).join("");
+
+    var spans = el.querySelectorAll("span");
+    var lines = [];
+    var currentLine = [];
+    var lastTop = -Infinity;
+
+    for (var i = 0; i < spans.length; i++) {
+      var top = Math.round(spans[i].getBoundingClientRect().top);
+      if (lastTop > -Infinity && top !== lastTop) {
+        lines.push(currentLine.join(" "));
+        currentLine = [];
+      }
+      currentLine.push(spans[i].textContent.trim());
+      lastTop = top;
+    }
+    if (currentLine.length) lines.push(currentLine.join(" "));
+
+    el.innerHTML = lines
+      .map(function (line, i) {
+        return '<span class="line-mask"><span class="line-inner" style="transition-delay:' + (i * 0.10) + 's">' + line + '</span></span>';
+      })
+      .join("");
+
+    return el.querySelectorAll(".line-inner");
+  }
+
+  /* ── IntersectionObserver for scroll reveals ── */
+  var revealObserver = new IntersectionObserver(
+    function (entries, obs) {
+      for (var i = 0; i < entries.length; i++) {
+        if (!entries[i].isIntersecting) continue;
+        var target = entries[i].target;
+        var lineInners = target.querySelectorAll(".line-inner");
+        for (var j = 0; j < lineInners.length; j++) {
+          lineInners[j].classList.add("is-visible");
+        }
+        target.classList.add("is-visible");
+        obs.unobserve(target);
+      }
+    },
+    { threshold: 0.15 }
+  );
+
+  /* ── Wait for fonts, then init text animations ── */
+  function initTextAnimations() {
+    /* Hero text */
+    var heroText = document.querySelector(".hero-text");
+    if (heroText) {
+      var heroLines = splitLines(heroText);
+      requestAnimationFrame(function () {
+        setTimeout(function () {
+          for (var i = 0; i < heroLines.length; i++) {
+            heroLines[i].classList.add("is-visible");
+          }
+          /* Clean up will-change */
+          setTimeout(function () {
+            for (var i = 0; i < heroLines.length; i++) {
+              heroLines[i].style.willChange = "auto";
+            }
+          }, 1000);
+        }, 300);
+      });
+    }
+
+    /* Section titles */
+    var teamTitle = document.querySelector(".team-title");
+    var faqTitle = document.querySelector(".faq-title");
+    if (teamTitle) {
+      splitLines(teamTitle);
+      revealObserver.observe(teamTitle);
+    }
+    if (faqTitle) {
+      splitLines(faqTitle);
+      revealObserver.observe(faqTitle);
+    }
+  }
+
+  /* Use document.fonts.ready if available, otherwise fallback to load event */
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () {
+      requestAnimationFrame(initTextAnimations);
+    });
+  } else {
+    window.addEventListener("load", initTextAnimations);
+  }
+
+  /* ── FAQ staggered scroll reveal ── */
+  for (var qi = 0; qi < faqItems.length; qi++) {
+    faqItems[qi].style.transitionDelay = (qi * 0.06) + "s, " + (qi * 0.06) + "s, 0s, 0s";
+    revealObserver.observe(faqItems[qi]);
+    /* Clear stagger delay after reveal so it doesn't affect open/close */
+    (function (item) {
+      item.addEventListener("transitionend", function clearDelay(e) {
+        if (e.propertyName === "opacity") {
+          item.style.transitionDelay = "";
+          item.removeEventListener("transitionend", clearDelay);
+        }
+      });
+    })(faqItems[qi]);
+  }
+
+  /* ── Footer reveals ── */
+  var footerBtn = document.querySelector(".footer-btn");
+  var footerBlock = document.querySelector(".footer-block");
+  if (footerBtn) revealObserver.observe(footerBtn);
+  if (footerBlock) revealObserver.observe(footerBlock);
+
+
+})();
+</script>

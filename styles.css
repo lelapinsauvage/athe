@@ -52,6 +52,10 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: clip;
+}
+
 body {
   font-family: 'GT Walsheim', sans-serif;
   background: #EFE7E1;
@@ -64,6 +68,7 @@ body {
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  background: #EFE7E1;
 }
 
 .hero-new-block {
@@ -79,9 +84,9 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 50%;
-  height: 15%;
-  background: #EFE7E1;
+  width: 100%;           /* 1920 / 1920 — full width */
+  height: 11.76%;        /* 127 / 1080 */
+  background: #EEE7E1;
   z-index: 1;
 }
 
@@ -141,8 +146,8 @@ body {
 }
 
 .hero-new-link-blue   { color: #689DE8; }
-.hero-new-link-red    { color: #D85050; }
-.hero-new-link-yellow { color: #D4A843; }
+.hero-new-link-red    { color: #ED5F64; }
+.hero-new-link-yellow { color: #FFBF24; }
 
 /* ── Old Hero text section ── */
 .hero {

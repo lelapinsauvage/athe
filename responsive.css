@@ -1,14 +1,91 @@
 /* ═══════════════════════════════════════════════
    ATHENA — Responsive
    Design base: 1920px
+   New Hero stacks: ≤ 1024px
    Tablet: ≤ 1024px
    Mobile: ≤ 768px
    ═══════════════════════════════════════════════ */
 
 /* ────────────────────────────────────────────────
-   TABLET
+   1280px — gentle scale-down, layout unchanged
+   ──────────────────────────────────────────────── */
+@media (max-width: 1280px) {
+  .hero {
+    padding: 0 6vw;
+  }
+  .hero-text {
+    font-size: 3.8vw;
+    line-height: 4.8vw;
+  }
+}
+
+/* ────────────────────────────────────────────────
+   TABLET (≤ 1024px)
+   New hero stacks: title → links → full-width image
    ──────────────────────────────────────────────── */
 @media (max-width: 1024px) {
+
+  /* ── New Hero — stack layout ── */
+  .hero-new {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  }
+  .hero-new-block {
+    display: none;
+  }
+  .hero-new-bar {
+    display: none;
+  }
+  .hero-new-title {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    order: 1;
+    text-align: left;
+    padding: 10vw 8vw 3vw 1.6rem;
+    font-size: 5.5vw;
+    line-height: 7vw;
+    letter-spacing: 0.08vw;
+  }
+  .hero-new-links {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    order: 2;
+    display: flex;
+    flex-direction: row;
+    gap: 3vw;
+    text-align: left;
+    padding: 0 8vw 3vw 1.6rem;
+  }
+  .hero-new-link {
+    font-size: 1.5vw;
+    line-height: 1.4;
+  }
+  .hero-new-image {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    order: 3;
+    z-index: auto;
+  }
+  .hero-new-image img {
+    aspect-ratio: auto;
+    width: 100%;
+    height: 55vh;
+    object-fit: cover;
+  }
+  .hero-new-caption {
+    font-size: 1.5vw;
+    bottom: 1.5vw;
+    left: 2vw;
+    color: #fff;
+  }
 
   /* ── Hero ── */
   .hero {
@@ -30,6 +107,7 @@
   }
   .services {
     position: relative;
+    width: 100%;
     height: auto;
     overflow: visible;
   }
@@ -233,6 +311,30 @@
    MOBILE
    ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
+
+  /* ── New Hero — mobile sizes ── */
+  .hero-new-title {
+    padding: 12vw 5vw 3vw 1.6rem;
+    font-size: 7vw;
+    line-height: 9vw;
+    letter-spacing: 0.12vw;
+  }
+  .hero-new-links {
+    padding: 0 5vw 2vw 1.6rem;
+    gap: 4vw;
+  }
+  .hero-new-link {
+    font-size: 2.4vw;
+    line-height: 1.4;
+  }
+  .hero-new-image img {
+    height: 50vh;
+  }
+  .hero-new-caption {
+    font-size: 2.5vw;
+    bottom: 3vw;
+    left: 3vw;
+  }
 
   /* ── Hero ── */
   .hero {
@@ -531,11 +633,16 @@
   .footer-block.is-visible .footer-divider {
     transform: none;
   }
+  .footer-left {
+    flex: 0 0 auto;
+  }
   .footer-right {
     position: relative;
     right: auto;
     top: auto;
     bottom: auto;
+    flex: 0 0 auto;
+    justify-content: flex-start;
     align-items: flex-start;
     gap: 4vw;
   }
@@ -560,6 +667,25 @@
    SMALL MOBILE (≤ 480px)
    ──────────────────────────────────────────────── */
 @media (max-width: 480px) {
+  .hero-new-title {
+    padding: 16vw 5vw 3vw 1.6rem;
+    font-size: 8.5vw;
+    line-height: 10.5vw;
+  }
+  .hero-new-links {
+    padding: 0 5vw 2vw 1.6rem;
+  }
+  .hero-new-link {
+    font-size: 3vw;
+    line-height: 1.4;
+  }
+  .hero-new-image img {
+    height: 45vh;
+  }
+  .hero-new-caption {
+    font-size: 3vw;
+  }
+
   .hero-text {
     font-size: 7.5vw;
     line-height: 9.5vw;

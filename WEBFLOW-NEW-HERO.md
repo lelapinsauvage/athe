@@ -44,6 +44,7 @@ Paste this into **Project Settings > Custom Code > Head Code** inside a `<style>
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  background: #EFE7E1;
 }
 
 /* Grey block — left half */
@@ -56,14 +57,14 @@ Paste this into **Project Settings > Custom Code > Head Code** inside a `<style>
   background: #DBD3CD;
 }
 
-/* Beige bar — top of grey block (matches page bg) */
+/* Beige bar — full width, top strip */
 .hero-new-bar {
   position: absolute;
   top: 0;
   left: 0;
-  width: 50%;
-  height: 15%;            /* ~162px of 1080 */
-  background: #EFE7E1;
+  width: 100%;            /* 1920 / 1920 — full width */
+  height: 11.76%;         /* 127 / 1080 */
+  background: #EEE7E1;
   z-index: 1;
 }
 
@@ -129,8 +130,115 @@ Paste this into **Project Settings > Custom Code > Head Code** inside a `<style>
 }
 
 .hero-new-link-blue   { color: #689DE8; }
-.hero-new-link-red    { color: #D85050; }
-.hero-new-link-yellow { color: #D4A843; }
+.hero-new-link-red    { color: #ED5F64; }
+.hero-new-link-yellow { color: #FFBF24; }
+
+/* ── Stack layout (≤ 1024px) ── */
+@media (max-width: 1024px) {
+  .hero-new {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  }
+  .hero-new-block {
+    display: none;
+  }
+  .hero-new-bar {
+    display: none;
+  }
+  .hero-new-title {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    order: 1;
+    padding: 10vw 8vw 3vw;
+    font-size: 5.5vw;
+    line-height: 7vw;
+    letter-spacing: 0.08vw;
+  }
+  .hero-new-links {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    order: 2;
+    text-align: center;
+    padding: 0 8vw 4vw;
+  }
+  .hero-new-link {
+    font-size: 1.5vw;
+    line-height: 3vw;
+  }
+  .hero-new-image {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    order: 3;
+    z-index: auto;
+  }
+  .hero-new-image img {
+    aspect-ratio: auto;
+    width: 100%;
+    height: 50vh;
+    object-fit: cover;
+  }
+  .hero-new-caption {
+    font-size: 1.5vw;
+    bottom: 1.5vw;
+    left: 2vw;
+    color: #fff;
+  }
+}
+
+/* ── Mobile (≤ 768px) ── */
+@media (max-width: 768px) {
+  .hero-new-title {
+    padding: 12vw 7vw 3vw;
+    font-size: 7vw;
+    line-height: 9vw;
+    letter-spacing: 0.12vw;
+  }
+  .hero-new-links {
+    padding: 0 7vw 5vw;
+  }
+  .hero-new-link {
+    font-size: 2.8vw;
+    line-height: 5vw;
+  }
+  .hero-new-image img {
+    height: 42vh;
+  }
+  .hero-new-caption {
+    font-size: 2.5vw;
+    bottom: 3vw;
+    left: 3vw;
+  }
+}
+
+/* ── Small Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+  .hero-new-title {
+    padding: 16vw 5vw 3vw;
+    font-size: 8.5vw;
+    line-height: 10.5vw;
+  }
+  .hero-new-links {
+    padding: 0 5vw 5vw;
+  }
+  .hero-new-link {
+    font-size: 3.5vw;
+    line-height: 6vw;
+  }
+  .hero-new-image img {
+    height: 38vh;
+  }
+  .hero-new-caption {
+    font-size: 3vw;
+  }
+}
 ```
 
 ---
@@ -158,7 +266,7 @@ After import, your page structure should be:
 |-----------------|-------|-------------|
 | Section | `hero-new` | Full-viewport container, 100vh |
 | Div Block | `hero-new-block` | Grey (#DBD3CD) background, left 50% |
-| Div Block | `hero-new-bar` | Beige (#EFE7E1) bar at top of grey block |
+| Div Block | `hero-new-bar` | Beige (#EEE7E1) bar, full width, 127px tall |
 | Div Block | `hero-new-image` | Image wrapper, absolutely positioned |
 | Image | (inside `hero-new-image`) | Architectural photo, 493:602 aspect |
 | Text Span | `hero-new-caption` | "360° Real Estate" label on image |
@@ -170,10 +278,77 @@ After import, your page structure should be:
 
 ---
 
+## Step 4: Integration Fix (REQUIRED)
+
+Since `hero-new` is placed **inside** `.page-wrapper` (which has `height: 0`), it breaks the nav overlay system and pushes nothing below. Add this CSS alongside the hero-new CSS to fix all interactions:
+
+```css
+/* ═══════════════════════════════════════════════
+   HERO-NEW / PAGE-WRAPPER INTEGRATION
+   Fixes: paragraph section behind hero,
+   page-main overlay, page-1/2/3 stacking
+   ═══════════════════════════════════════════════ */
+
+/* page-wrapper must have height so content below is pushed down */
+.page-wrapper {
+  height: 100vh;
+}
+
+/* hero-new needs explicit z-index below the overlay pages */
+.hero-new {
+  z-index: 1;
+}
+
+/* page-main must overlay hero-new, not sit beside it in flex row */
+.page-main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+}
+
+/* Overlay pages above hero-new */
+.page-1, .page-2, .page-3 {
+  z-index: 5;
+}
+
+/* ── Tablet/Mobile: hero-new stacks, wrapper auto-heights ── */
+@media (max-width: 1024px) {
+  .page-wrapper {
+    height: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .page-wrapper {
+    height: auto;
+    flex-flow: column;
+  }
+  .page-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 4;
+  }
+}
+```
+
+### Why this is needed
+
+The `.page-wrapper` was designed as a 0-height overlay container — everything inside was either `display: none` or `position: absolute`. Adding `hero-new` with `position: relative` breaks that pattern because:
+
+1. **Paragraph behind hero** — the wrapper is 0px tall in document flow, so content after it sits at the top of the page, behind the overflowing hero
+2. **page-main beside hero** — the wrapper is `display: flex` (row), so when the burger opens page-main, it shares horizontal space instead of overlaying
+3. **nav pages under hero** — without explicit z-index on hero-new, the stacking order is ambiguous
+
+---
+
 ## Notes
 
 - All classes use `hero-new-` prefix to avoid conflicts with the existing `hero` section
 - All sizes use `vw` units so they scale proportionally from the 1920px design
-- The beige bar height (`15%`) may need adjusting — increase/decrease to match your exact XD comp
+- The beige bar is full-width (1920px) and 127px tall — exact XD Rechteck 22 specs
 - Replace the placeholder image URL after importing into Webflow
 - No JavaScript needed for this section — it's pure CSS positioning
